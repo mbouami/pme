@@ -103,10 +103,10 @@ class Groupes implements RoleInterface
     /**
      * Add referents
      *
-     * @param \Acme\ProsalesBundle\Entity\Referents $referents
+     * @param \Acme\PmeBundle\Entity\Referents $referents
      * @return Groupes
      */
-    public function addReferent(\Acme\ProsalesBundle\Entity\Referents $referents)
+    public function addReferent(\Acme\PmeBundle\Entity\Referents $referents)
     {
         $this->referents[] = $referents;
 
@@ -116,9 +116,9 @@ class Groupes implements RoleInterface
     /**
      * Remove referents
      *
-     * @param \Acme\ProsalesBundle\Entity\Referents $referents
+     * @param \Acme\PmeBundle\Entity\Referents $referents
      */
-    public function removeReferent(\Acme\ProsalesBundle\Entity\Referents $referents)
+    public function removeReferent(\Acme\PmeBundle\Entity\Referents $referents)
     {
         $this->referents->removeElement($referents);
     }
