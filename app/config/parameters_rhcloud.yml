@@ -1,11 +1,11 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
-    database_host: $OPENSHIFT_MYSQL_DB_HOST
-    database_port: $OPENSHIFT_MYSQL_DB_PORT
-    database_name: $OPENSHIFT_APP_NAME
-    database_user: $OPENSHIFT_MYSQL_DB_USERNAME
-    database_password: $OPENSHIFT_MYSQL_DB_USERNAME
+    database_host: 127.13.125.2
+    database_port: 3306
+    database_name: pme
+    database_user: adminhZ7mJr7
+    database_password: gF4VFzfztc9_
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
