@@ -12,4 +12,8 @@ nbproject/
 # ignorer doc/notes.txt, mais pas doc/server/arch.txt
 #doc/*.txt
 # ignorer tous les fichiers .txt sous le répertoire doc/
+<<<<<<< HEAD
 #doc/**/*.txt
+=======
+#doc/**/*.txt
+>>>>>>> 9efcc29b0d81058b41c40266bb2a6ed46ff88cfd
