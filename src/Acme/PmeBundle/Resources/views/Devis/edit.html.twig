@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {{ form_start(edit_form, {'attr': {'onsubmit':'return sendForm("POST",this);','enctype':'multipart/form-data'}}) }}
+        {{ form_errors(edit_form) }}  
+    <table border='0'>
+        <tr>
+            <td>{{ form_widget(edit_form.dossier) }}</td>
+            <td>{{ form_widget(edit_form.referent) }}</td>               
+            <td>{{ form_widget(edit_form.modereglement) }}</td>            
+        </tr>
+        <tr>
+            <td>{{ form_widget(edit_form.organisation) }}</td>
+            <td>{{ form_widget(edit_form.contact) }}</td>               
+            <td>{{ form_widget(edit_form.typedevis) }}</td>            
+        </tr> 
+        <tr>
+            <td  colspan="3" style="text-align: left">Quantité : {{ form_widget(edit_form.quantite) }}</td>          
+        </tr>              
+        <tr>
+            <td  style="text-align: left;position: inherit; bottom: 0px;vertical-align: top;">{{ form_widget(edit_form.produits) }}</td>     
+            <td  colspan="2" style="text-align: right;position: inherit; bottom: 0px;vertical-align: top;">
+                {{ form_widget(edit_form.produitsdevis) }}
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="3" style="text-align: right">Total HT : {{ form_widget(edit_form.totalht, { 'value': edit_form.vars.value.totalht }) }}</td>            
+                    </tr>    
+                    <tr>
+                        <td colspan="2" style="text-align: right">Taux TVA : {{ form_widget(edit_form.tauxtva, { 'value': edit_form.vars.value.tauxtva }) }}</td> 
+                        <td style="text-align: right">Total TVA ({{ edit_form.vars.value.tauxtva }} %) : {{ form_widget(edit_form.totaltva, { 'value': edit_form.vars.value.totaltva }) }}</td>              
+                    </tr>  
+                    <tr>
+                        <td colspan="3" style="text-align: right">Frais de Port : {{ form_widget(edit_form.fraisport, { 'value': edit_form.vars.value.fraisport }) }}</td>            
+                    </tr>      
+                    <tr>
+                        <td colspan="3" style="text-align: right">Total TTC : {{ form_widget(edit_form.totalttc, { 'value': edit_form.vars.value.totalttc }) }}</td>            
+                    </tr>   
+                    <tr>
+                        <td colspan="3">{{ form_widget(edit_form.observation, { 'value': edit_form.vars.value.observation }) }}</td>
+                    </tr>                      
+                </table>
+            </td>               
+        </tr>            
+    </table>  
+        {{ form(edit_form) }}
+    {{ form_end(edit_form) }}   
+{% endblock %}

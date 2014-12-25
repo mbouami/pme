@@ -1,0 +1,122 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain 'PmeBundle' %}
+{% block head %}
+    <link rel="icon" sizes="16x16" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <script>dojoConfig = {parseOnLoad: true}</script> 
+    <script>
+        niveau = 1;
+        username = '{{ app.user.__toString }}';  
+        userid = '{{ app.user.id }}'; 
+        {% for groupe in app.user.groupes %} 
+            {% if  groupe.role=='ROLE_ADMIN' %} useradmin=true {% endif %}
+        {% endfor %}        
+    </script>    
+{% endblock %}
+{% block stylesheets %}  
+        <link rel="stylesheet" href="{{ asset('css/mescss.css') }}" />
+        <link rel="stylesheet" href="{{ asset('js/dijit/themes/soria/soria.css') }}" />
+        <link rel="stylesheet" href="{{ asset('js/dojo/resources/dojo.css') }}" />
+        <link rel="stylesheet" href="{{ asset('js/gridx/resources/claro/Gridx.css') }}" />   
+        <link rel="stylesheet" href="{{ asset('js/dojox/calendar/themes/soria/Calendar.css') }}" />
+        <link rel="stylesheet" href="{{ asset('js/dojox/form/resources/CheckedMultiSelect.css') }}" /> 
+{% endblock %}
+
+{% block javascripts %}      
+        <script src='{{ asset('js/dojo/dojo.js') }}'></script>
+        <script src='{{ asset('js/mesStores.js') }}'></script>          
+        <script src='{{ asset('js/mesparametres.js') }}'></script>           
+        <script src='{{ asset('js/mesfonctions.js') }}'></script>          
+{% endblock %}   
+        
+{% block class %}
+    class="soria"
+{% endblock %}
+{% block title %}
+Pme Bundle    
+{% endblock %}    
+
+{% block body %}
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false" id="zoneaffichage">
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false" id="zonemenu" >     
+    </div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom', splitter:false" id="zonebas">
+        <div id="message" style="text-align: left"></div>
+        <div id="deconnexion" style="text-align: right">
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.__toString}) }} ( {% for groupe in app.user.groupes %} {{ groupe.nom|upper}}-{% endfor %})
+            <button data-dojo-type="dijit/form/Button" type="button" onClick='location.href="{{ path('_pme_logout') }}"'>{{ 'layout.logout'|trans }}</button>
+        </div>
+    </div>    
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', tabStrip:true" id="zonecentral">
+        <div data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;" data-dojo-props="id:'zoneonglets'">
+            <div data-dojo-type="dijit/layout/ContentPane" title="Accueil" data-dojo-props="selected:true,id:'accueil',tooltip:'Onglet d\'accueil de l\'application'">
+                <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false">
+                    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left', splitter:true" id="zonecentralgauche">
+                        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:false">
+                            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:true" id="zonecentralhautgauche">
+                                <div id="zoneetabs"></div>
+                            </div>      
+                            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" id="zonecentralbasgauche">
+                                <div id="zonedevisencours"></div>
+                            </div>               
+                        </div>
+                    </div>      
+                    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" id="zonecentraldroite">
+                        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:false">
+                            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:true" id="zonecentralhautdroite">
+                                <div data-dojo-type="dijit/layout/TabContainer" id="tabPane">
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Détail" data-dojo-props="selected:true,id:'detail'">
+
+                                    </div>
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Les Contacts" data-dojo-props="id:'contacts'">
+                                        <div id="zonecontacts"></div>
+                                    </div>
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Les Devis" data-dojo-props="closable:true,id:'devis'">
+                                        <div id="zonedevis"></div>
+                                    </div>
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Les Commandes" data-dojo-props="id:'commandes'">
+                                        <div id="zonecommandes"></div>
+                                    </div>
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Les Relances" data-dojo-props="closable:true,id:'relances'">
+                                        <div id="zonerelances"></div>
+                                    </div>       
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Les Actions" data-dojo-props="id:'actions'">
+                                        <div id="zoneactions"></div>
+                                    </div>
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Les Devis Classés" data-dojo-props="closable:true,id:'devisclasses'">
+
+                                    </div>                             
+                                </div>
+                            </div>      
+                            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" id="zonecentralbasdroite">
+                                <div data-dojo-type="dijit/layout/TabContainer" id= "zoneongletsapercu">
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Calendrier" data-dojo-props="selected:true,id:'calendrier'">
+                                        <div id="zoneagenda"></div>
+                                    </div>
+                                    <div data-dojo-type="dijit/layout/ContentPane" title="Apercu" data-dojo-props="id:'apercu'">
+                                        <div class='zonemessage' id='zonemessage'></div>                                        
+                                        <div id="zoneapercu"></div>
+                                        <div>
+                                            <table style='width:100%;'>
+                                                <tr>
+                                                    <td class='zonedonneesdevis' id='totalht'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class='zonedonneesdevis' id='tauxtva'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class='zonedonneesdevis' id='fraisport'></td>
+                                                </tr><tr><td class='zonedonneesdevis' id='totalttc'></td>
+                                                </tr>
+                                            </table>                                            
+                                        </div>                                        
+                                    </div>                          
+                                </div>
+                            </div>               
+                        </div>
+                    </div>               
+                </div>
+            </div>                        
+        </div>       
+    </div>      
+</div>
+{% endblock %}

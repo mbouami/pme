@@ -1,0 +1,13 @@
+Acme\PmeBundle\Entity\Statuts:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\StatutsRepository      
+  table: pme_statuts
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 100

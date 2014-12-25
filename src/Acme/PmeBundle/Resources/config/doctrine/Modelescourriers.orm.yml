@@ -1,0 +1,20 @@
+Acme\PmeBundle\Entity\Modelescourriers:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\ModelescourriersRepository      
+  table: pme_modelescourriers
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    libelle:
+      type: string
+      length: 100
+    sujet:
+      type: string
+      length: 150      
+    description:
+      type: text
+      nullable: true      
+  lifecycleCallbacks: {  }    

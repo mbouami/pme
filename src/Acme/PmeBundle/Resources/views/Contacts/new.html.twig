@@ -1,0 +1,8 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {{ form_start(form, {'attr': {'onsubmit':'return sendForm("POST",this,grillecontacts);','enctype':'multipart/form-data'}}) }} 
+        {{ form_errors(form) }}  
+        {{ form(form) }}
+    {{ form_end(form) }}          
+{% endblock %}

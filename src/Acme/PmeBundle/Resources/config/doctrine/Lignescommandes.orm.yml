@@ -1,0 +1,39 @@
+Acme\PmeBundle\Entity\Lignescommandes:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\LignescommandesRepository      
+  table: pme_lignescommandes
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    ordre:
+      type: integer   
+    reference:
+      type: string
+      length: 100
+    prixht:
+      type: decimal
+      precision: 10
+      scale: 2
+    quantite:
+      type: integer  
+    remise:
+      type: decimal
+      precision: 10
+      scale: 2
+    totalht:
+      type: decimal
+      precision: 10
+      scale: 2  
+    description:
+      type: text
+      nullable: true      
+  manyToOne:
+    commande:
+      targetEntity: Commandes
+      inversedBy: lignescommandes
+      joinColumn:
+        name: commande_id
+        referencedColumnName: id      

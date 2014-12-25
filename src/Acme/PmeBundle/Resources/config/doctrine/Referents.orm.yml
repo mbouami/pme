@@ -1,0 +1,86 @@
+Acme\PmeBundle\Entity\Referents:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\ReferentsRepository      
+  table: pme_referents
+  fields:
+    id:
+      type: integer
+      id: true      
+      generator:
+        strategy: AUTO      
+    nom:
+      type: string
+      length: 100
+      nullable: false
+    prenom:
+      type: string
+      length: 100
+      nullable: false     
+    username:
+      type: string
+      length: 255
+      unique: true
+    salt:
+      type: string
+      length: 255
+    password:
+      type: string
+      length: 255 
+    email:
+      type: string
+      length: 100
+      unique: true 
+    fixe:
+      type: string
+      length: 20
+    mobile:
+      type: string
+      length: 20
+    signature:
+      type: blob
+      nullable: true
+    signatureweb:
+      type: blob
+      nullable: true            
+    isActive:
+      type: boolean
+      nullable: true
+      column: is_active  
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at  
+    connectedAt:
+      type: datetime
+      nullable: false
+      column: connected_at
+  manyToOne:
+    civilite:
+      targetEntity: Civilites      
+  manyToMany:     
+    groupes:
+      targetEntity: Groupes
+      inversedBy: referents
+      joinTable:
+        name: pme_referents_groupes
+        joinColumns:
+            referent_id:
+              referencedColumnName: id                
+        inverseJoinColumns:
+            groupe_id:
+              referencedColumnName: id 
+      cascade: [persist]  
+      
+  lifecycleCallbacks:
+    postUpdate: [ doStuffOnPostUpdate ]   
+    preUpdate: [ doStuffOnPreUpdate ]     
+    postLoad: [ doStuffOnPostLoad ]  
+    prePersist: [ doStuffOnPreUpdate ]
+    postPersist: [ doStuffOnPostUpdate ]       
+#    prePersist: [ doStuffOnPrePersist, doOtherStuffOnPrePersist ]
+#    postPersist: [ doStuffOnPostPersist ]      
+      

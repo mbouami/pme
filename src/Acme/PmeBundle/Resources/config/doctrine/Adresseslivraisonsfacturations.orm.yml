@@ -1,0 +1,45 @@
+Acme\PmeBundle\Entity\Adresseslivraisonsfacturations:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\AdresseslivraisonsfacturationsRepository    
+  table: pme_adresseslivraisonsfacturations
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    intitule:
+      type: string
+      length: 100
+    adresse:
+      type: string
+      length: 255
+    description:
+      type: text
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at
+  manyToOne:
+    ville:
+      targetEntity: Villes
+    organisation:
+      targetEntity: Organisations  
+  manyToMany:     
+    typesadresse:
+      targetEntity: Typesadresse
+      inversedBy: adresseslivraisonsfacturations
+      joinTable:
+        name: pme_adresseslivraisonsfacturations_type
+        joinColumns:
+            adresse_id:
+              referencedColumnName: id                
+        inverseJoinColumns:
+            typeadresse_id:
+              referencedColumnName: id 
+      cascade: [remove]       
+  lifecycleCallbacks: {  }

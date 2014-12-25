@@ -1,0 +1,271 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 août 2013, 18:56:20
+    Author     : BOUAMI
+*/
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;   
+}
+ 
+#zoneaffichage, #tabPane, #zoneongletsapercu {
+    width: 100%;
+    height: 100%;
+}
+#zonecentralgauche, #zonecentraldroite,#zonecentralhautgauche, #zonecentralhautdroite {
+    width: 50%;
+    height: 50%;    
+}
+
+/*.dijitInputInner {
+    text-align: right;
+    text-orientation: upright;
+    alignment-adjust: central;
+}*/
+header {
+    position:fixed;
+    top:0;
+    width:100%;
+    height:40px;
+    background-color:#333;
+    padding:20px;
+}
+
+footer {
+    background-color: #333;
+    width: 100%;
+    bottom: 0;
+    position: relative;
+}
+#container {
+    height: 100%;
+}
+#leftCol {
+    width: 14em;
+}
+ 
+.claro .demoLayout .edgePanel {
+    background-color: #d0e9fc;
+}
+ 
+#viewsChart {
+    width: 550px;
+    height: 550px;
+}
+
+.agenda {
+    position:absolute;
+    left:10px;
+    top:10px;
+    bottom:10px;
+    right:10px;
+}
+
+.zoneaffichage {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    margin: 0px;    
+}
+
+.bottom {
+    height: 20px;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.labelsAndValues-labelCell {
+
+  background-color: lightgrey;
+  padding-left: 5px;
+}
+
+.labelsAndValues-valueCell {
+
+  padding-left: 5px;
+  /*background-color: lightblue;*/
+}
+
+/*.labelsAndValues-table {
+    width: '800px';
+}*/
+
+/*.gridx {
+    width: 700px;
+    height: 400px;
+}*/
+.grilleetablissement {
+/*    position:absolute;*/
+    position: relative;  
+    left: 0.5em;
+    top: 3em;
+}
+.grillepersonnel {
+    /*position:absolute;*/
+    position: relative;    
+    right: 0.5em;
+    top: 3em;
+}
+
+.grillelignesproduits {
+    /*position:absolute;*/
+    position: relative;    
+    left: 0.5em;
+    top: 0em;
+}
+
+.actionmodifier {
+    content: url(../images/modifier.png);
+    background-repeat: no-repeat;
+    display:inline-block;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.actionsupprimer {
+    content: url(../images/supprimer.png);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;   
+}
+
+.actionediter {
+    content: url(../images/editer.png);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px; 
+}
+
+.soria .dojoxCalendarEvent.evenement_1 .bg {
+  background-color: #00AA00;
+}
+.soria .dojoxCalendarEvent.evenement_1.Hovered .bg {
+  background-color: #00FF00;
+}
+.soria .dojoxCalendarEvent.evenement_1.Selected .bg {
+  background-color: #004400;
+}
+
+.soria .dojoxCalendarEvent.evenement_2 .bg {
+  background-color: #0000AA;
+}
+.soria .dojoxCalendarEvent.evenement_2.Hovered .bg {
+  background-color: #0000FF;
+}
+.soria .dojoxCalendarEvent.evenement_2.Selected .bg {
+  background-color: #000044;
+}
+
+#titre_Grille,#entete_table, #entete_date, #entete_bulletin {
+    font-size: 2em;
+    font-style: italic;
+    text-align: center;
+}
+
+#devis_totalttc, #devis_fraisport, #devis_totaltva, #devis_totalht, #devis_tauxtva {
+  /*background-color: #000044;*/
+  text-align: right;
+  text-decoration: #00FF00;
+}
+.alignement_a_droite  {
+  width:120px;
+  text-align: right;
+}
+/*.dijitInputInner {
+border: 0 !important;
+background-color: transparent !important;
+width: 100% !important;
+padding-left: 0 !important;
+padding-right: 0 !important;
+margin-left: 0 !important;
+margin-right: 0 !important;
+text-align: right;
+}*/
+
+.tva  {
+  width:50px;
+}
+
+.uploadBtn{
+    border:1px solid #333333;
+    background:url(buttonEnabled.png) #d0d0d0 repeat-x scroll 0px top;
+    font-size:14px;
+    width:201px;
+    height:30px;
+    vertical-align:middle; /* emulates a <button> if node is not */
+    text-align:center;
+}
+.uploadHover{
+    background-image:url(buttonHover.png);
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.uploadPress{
+    background-image:url(buttonActive.png);
+}
+.uploadDisabled{
+    background-image:none;
+    background-color:#666;
+    color:#999;
+    border:1px solid #999;
+}
+
+.signature{
+    border:1px solid #333333;
+    width:100px;
+    height:100px;
+}
+
+.zonemessage{
+    font-family: serif; 
+    color: red;
+    font-size: medium;     
+    text-align: left;
+}
+
+.zonedonneesdevis {
+    font-family: serif; 
+    color: red;
+    font-size: medium; 
+    text-align: right;    
+}
+/*tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}*/
+#filedrag
+{
+	display: none;
+	font-weight: bold;
+	text-align: center;
+	padding: 1em 0;
+	margin: 1em 0;
+	color: #555;
+	border: 2px dashed #555;
+	border-radius: 7px;
+	cursor: default;
+}
+
+#filedrag.hover
+{
+	color: #f00;
+	border-color: #f00;
+	border-style: solid;
+	box-shadow: inset 0 3px 4px #888;
+}
+
+#holder { border: 10px dashed #ccc; width: 300px; height: 300px; margin: 20px auto;}
+#holder.hover { border: 10px dashed #333; }

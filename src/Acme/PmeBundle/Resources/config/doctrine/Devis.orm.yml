@@ -1,0 +1,131 @@
+Acme\PmeBundle\Entity\Devis:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\DevisRepository      
+  table: pme_devis
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    dossier:
+      type: string
+      length: 255
+    reference:
+      type: string
+      length: 100
+      unique: true 
+    totalht:
+      type: decimal
+      precision: 10
+      scale: 2
+    tauxtva:
+      type: decimal
+      precision: 4
+      scale: 2        
+    totaltva:
+      type: decimal
+      precision: 10
+      scale: 2
+    totalttc:
+      type: decimal
+      precision: 10
+      scale: 2 
+    fraisport:
+      type: decimal
+      precision: 10
+      scale: 2
+    observation:
+      type: text
+      nullable: true
+    raisonclassement:
+      type: string
+      length: 255
+      nullable: true
+    classement:
+      type: boolean
+      default: false     
+    envoimail:
+      type: boolean
+      default: false
+    priorite:
+      type: boolean
+      default: false 
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at  
+#    lien:
+#      type: integer
+#      default: 0
+  manyToOne:
+    parent:
+      targetEntity: Devis
+      inversedBy: children
+#      cascade: [ "persist", "remove"]            
+#      joinColumn:
+#        name: lien_id
+#        referencedColumnName: id   
+    modereglement:
+      targetEntity: Modesreglement
+      inversedBy: devis      
+      joinColumn:
+        name: modereglement_id
+        referencedColumnName: id         
+    typedevis:
+      targetEntity: Typesdevis
+      inversedBy: devis      
+      joinColumn:
+        name: typedevis_id
+        referencedColumnName: id        
+    referent:
+      targetEntity: Referents 
+      inversedBy: devis      
+      joinColumn:
+        name: referent_id
+        referencedColumnName: id         
+#    tauxtva:
+#      targetEntity: Tauxtva  
+#      inversedBy: devis      
+#      joinColumn:
+#        name: tauxtva_id
+#        referencedColumnName: id      
+    organisation:
+      targetEntity: Organisations  
+      inversedBy: devis
+      joinColumn:
+        name: organisation_id
+        referencedColumnName: id          
+    contact:
+      targetEntity: Contacts  
+      inversedBy: devis
+      joinColumn:
+        name: contact_id
+        referencedColumnName: id         
+  oneToMany:
+    children:  
+        targetEntity: Devis 
+        mappedBy: parent
+        cascade: [ "persist", "remove"]        
+    lignesdevis:
+      targetEntity: Lignesdevis
+      mappedBy: devis
+      cascade: [ "persist", "remove"]
+#  manyToMany:     
+#    lignesdevis:
+#      targetEntity: Lignesdevis
+#      inversedBy: devis
+#      joinTable:
+#        name: pme_devis_lignesdevis
+#        joinColumns:
+#            devis_id:
+#              referencedColumnName: id                
+#        inverseJoinColumns:
+#            lignedevis_id:
+#              referencedColumnName: id 
+#      cascade: [remove]               
+      

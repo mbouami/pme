@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {{ form_start(form, {'attr': {'onsubmit':'return sendForm("POST",this,"grillecommandes");','enctype':'multipart/form-data'}}) }}       
+        {{ form_errors(form) }}  
+    <table border='0'>
+{#        <tr>
+            <td  colspan="3" style="text-align: center">Numéro de commande : {{ form_widget(form.numcommande) }}</td>          
+        </tr>  #}         
+        <tr>
+            <td>{{ form_widget(form.dossier) }}</td>
+            <td>{{ form_widget(form.referent) }}</td>               
+            <td>{{ form_widget(form.referenceclient) }}</td>            
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.organisation) }}</td>
+            <td>{{ form_widget(form.contact) }}</td>               
+            <td>{{ form_widget(form.modereglement) }}</td>   
+        </tr> 
+        <tr> 
+            <td  colspan="3" style="text-align: right;position: inherit; bottom: 0px;vertical-align: top;">
+                {{ form_widget(form.produitscommande) }}
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="3" style="text-align: right">Total HT : {{ form_widget(form.totalht, { 'value': form.vars.value.totalht }) }}</td>            
+                    </tr>    
+                    <tr>
+                        <td colspan="2" style="text-align: right">Taux TVA : {{ form_widget(form.tauxtva, { 'value': form.vars.value.tauxtva }) }}</td> 
+                        <td style="text-align: right">Total TVA ({{ form.vars.value.tauxtva }} %) : {{ form_widget(form.totaltva, { 'value': form.vars.value.totaltva }) }}</td>              
+                    </tr>  
+                    <tr>
+                        <td colspan="3" style="text-align: right">Frais de Port : {{ form_widget(form.fraisport, { 'value': form.vars.value.fraisport }) }}</td>            
+                    </tr>      
+                    <tr>
+                        <td colspan="3" style="text-align: right">Total TTC : {{ form_widget(form.totalttc, { 'value': form.vars.value.totalttc }) }}</td>            
+                    </tr>   
+                    <tr>
+                        <td colspan="3">{{ form_widget(form.observation, { 'value': form.vars.value.observation }) }}</td>
+                    </tr>                      
+                </table>
+            </td>               
+        </tr>        
+        <tr>
+            <td>{{ form_row(form.livrermemeadresse) }}</td>
+            <td colspan="2">{#{{ form_row(form.livraison) }}#}</td>            
+        </tr>      
+        <tr>
+            <td>{{ form_row(form.facturermemeadresse) }}</td>
+            <td colspan="2">{#{{ form_row(form.facturation) }}#}</td>            
+        </tr>          
+    </table>  
+        {{ form(form) }}
+    {{ form_end(form) }}   
+{% endblock %}    
+

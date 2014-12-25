@@ -1,0 +1,106 @@
+Acme\PmeBundle\Entity\Commandes:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\CommandesRepository      
+  table: pme_commandes
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    numcommande:
+      type: string
+      length: 100
+      unique: true         
+    dossier:
+      type: string
+      length: 255
+    referenceclient:
+      type: string
+      length: 100
+    totalht:
+      type: decimal
+      precision: 10
+      scale: 2
+    tauxtva:
+      type: decimal
+      precision: 4
+      scale: 2              
+    totaltva:
+      type: decimal
+      precision: 10
+      scale: 2
+    totalttc:
+      type: decimal
+      precision: 10
+      scale: 2 
+    fraisport:
+      type: decimal
+      precision: 10
+      scale: 2
+    observation:
+      type: text
+      nullable: true
+    livrermemeadresse:
+      type: boolean
+      default: true    
+    facturermemeadresse:
+      type: boolean
+      default: true          
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at  
+  manyToOne:
+    modereglement:
+      targetEntity: Modesreglement
+      inversedBy: commande      
+      joinColumn:
+        name: modereglement_id
+        referencedColumnName: id      
+    livraison:
+      targetEntity: Adresseslivraisonsfacturations
+      inversedBy: commande
+      joinColumn:
+        name: adresselivraison_id
+        referencedColumnName: id   
+    facturation:
+      targetEntity: Adresseslivraisonsfacturations
+      inversedBy: commande
+      joinColumn:
+        name: adressefacturation_id
+        referencedColumnName: id                      
+    referent:
+      targetEntity: Referents 
+      inversedBy: commande      
+      joinColumn:
+        name: referent_id
+        referencedColumnName: id         
+#    tauxtva:
+#      targetEntity: Tauxtva  
+#      inversedBy: commande      
+#      joinColumn:
+#        name: tauxtva_id
+#        referencedColumnName: id      
+    organisation:
+      targetEntity: Organisations  
+      inversedBy: commande
+      joinColumn:
+        name: organisation_id
+        referencedColumnName: id          
+    contact:
+      targetEntity: Contacts  
+      inversedBy: commande
+      joinColumn:
+        name: contact_id
+        referencedColumnName: id         
+  oneToMany:
+    lignescommandes:
+      targetEntity: Lignescommandes
+      mappedBy: commande
+      cascade: [ "persist", "remove"]             
+      

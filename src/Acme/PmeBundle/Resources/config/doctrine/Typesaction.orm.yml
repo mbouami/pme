@@ -1,0 +1,14 @@
+Acme\PmeBundle\Entity\Typesaction:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\TypesactionRepository   
+  table: pme_typesaction
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 100  
+  lifecycleCallbacks: {  }

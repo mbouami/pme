@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%} 
+Bonjour {{ devis.contact }}<br>
+
+Comme convenu, je vous transmets le devis {{ devis.reference }}
+<br>
+Cordialement<br>
+
+<p style="font-family: Arial, sans-serif; margin-top: 0pt;  margin-bottom: 5px; font-size: 10pt; color:#000000;">
+  <span style="font-weight:bold;">{{ devis.referent }}</span>
+</p>
+<p>
+  <img  class="signature" src="{{ signatureweb }}" alt="Signatureweb"  width="94" height="40">
+</p>
+<p style="font-family: Arial, sans-serif; margin-top: 0pt;  margin-bottom: 0pt; font-size: 10pt; color:#000000;">
+  tél Bureau : {{ devis.referent.fixe }}<br />    
+  Mobile : {{ devis.referent.mobile }}<br />
+  <a href="mailto:{{ devis.referent.email }}" style="font-family:  Arial, sans-serif; font-size: 10pt;  color:#ff6600">{{ devis.referent.email }}</a><br />
+  Nous vous invitons à visiter notre site  <br />
+  <a href="http://www.progiss.com" style="font-family: Arial,  sans-serif; font-size: 10pt;  color:#ff6600">www.progiss.com</a>
+</p>
+{% endblock %}

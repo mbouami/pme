@@ -1,0 +1,30 @@
+organisations:
+    path:     /
+    defaults: { _controller: "AcmePmeBundle:Organisations:index" }
+
+organisations_show:
+    path:     /{id}/show
+    defaults: { _controller: "AcmePmeBundle:Organisations:show" }
+
+organisations_new:
+    path:     /new
+    defaults: { _controller: "AcmePmeBundle:Organisations:new" }
+
+organisations_create:
+    path:     /create
+    defaults: { _controller: "AcmePmeBundle:Organisations:create" }
+    requirements: { _method: post }
+
+organisations_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AcmePmeBundle:Organisations:edit" }
+
+organisations_update:
+    path:     /{id}/update
+    defaults: { _controller: "AcmePmeBundle:Organisations:update" }
+    requirements: { _method: post|put }
+
+organisations_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AcmePmeBundle:Organisations:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,17 @@
+Acme\PmeBundle\Entity\Parametres:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\ParametresRepository      
+  table: pme_parametres
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 255
+    valeur:
+      type: string
+      length: 100
+      unique: true      

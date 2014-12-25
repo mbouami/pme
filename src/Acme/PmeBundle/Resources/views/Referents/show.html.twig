@@ -1,0 +1,87 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}  
+    <h1>Referents</h1>
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entity.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ entity.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+            <tr>
+                <th>Salt</th>
+                <td>{{ entity.salt }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ entity.password }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Fixe</th>
+                <td>{{ entity.fixe }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ entity.mobile }}</td>
+            </tr>
+            <tr>
+                <th>Signature</th>
+                <td><canvas id="signature_canvas"></canvas>{#<img src="{{ signature }}" alt="signature du référent"/>#}</td>
+            </tr>
+            <tr>
+                <th>Signature Web</th>
+                <td><canvas id="signatureweb_canvas"></canvas>{#<img src="{{ signatureweb }}" alt="signature Web du référent"/>#}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{{ entity.isActive }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Connectedat</th>
+                <td>{{ entity.connectedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('referents') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('referents_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+    <script>
+        afficher_image('signature_canvas',"{{ signature }}");
+        afficher_image('signatureweb_canvas',"{{ signatureweb }}");        
+    </script>   
+{% endblock %}

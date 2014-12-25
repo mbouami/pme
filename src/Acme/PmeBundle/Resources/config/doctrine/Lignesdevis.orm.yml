@@ -1,0 +1,39 @@
+Acme\PmeBundle\Entity\Lignesdevis:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\LignesdevisRepository      
+  table: pme_lignesdevis
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    ordre:
+      type: integer   
+    reference:
+      type: string
+      length: 100
+    prixht:
+      type: decimal
+      precision: 10
+      scale: 2   
+    quantite:
+      type: integer  
+    remise:
+      type: decimal
+      precision: 10
+      scale: 2
+    totalht:
+      type: decimal
+      precision: 10
+      scale: 2    
+    description:
+      type: text
+      nullable: true      
+  manyToOne:
+    devis:
+      targetEntity: Devis
+      inversedBy: lignesdevis
+      joinColumn:
+        name: devis_id
+        referencedColumnName: id      

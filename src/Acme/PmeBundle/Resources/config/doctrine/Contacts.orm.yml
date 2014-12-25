@@ -1,0 +1,79 @@
+Acme\PmeBundle\Entity\Contacts:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\ContactsRepository      
+  table: pme_contacts
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO    
+    nom:
+      type: string
+      length: 100
+    prenom:
+      type: string
+      length: 100
+    email:
+      type: string
+      length: 100
+      nullable: true
+    fixe:
+      type: string
+      length: 20
+      nullable: true      
+    fax:
+      type: string
+      length: 20 
+      nullable: true      
+    mobile:
+      type: string
+      length: 20
+      nullable: true      
+    adresse:
+      type: text  
+      nullable: true
+    observation:
+      type: text 
+      nullable: true
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at  
+    connectedAt:
+      type: datetime
+      nullable: false
+      column: connected_at
+  manyToOne:
+    civilite:
+      targetEntity: Civilites        
+    ville:
+      targetEntity: Villes
+    saisipar:
+      targetEntity: Referents 
+    organisation:
+      targetEntity: Organisations  
+      inversedBy: contact
+      joinColumn:
+        name: organisation_id
+        referencedColumnName: id          
+    service:
+      targetEntity: Services         
+  manyToMany:     
+    centresinteret:
+      targetEntity: Centresinteret
+      inversedBy: contact
+#      cascade: ["persist", "remove"]      
+      joinTable:
+        name: pme_contacts_centresinteret
+        joinColumns:
+            contact_id:
+              referencedColumnName: id                
+        inverseJoinColumns:
+            centreinteret_id:
+              referencedColumnName: id                
+      

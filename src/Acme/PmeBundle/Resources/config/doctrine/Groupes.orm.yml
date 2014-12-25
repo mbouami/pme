@@ -1,0 +1,22 @@
+Acme\PmeBundle\Entity\Groupes:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\GroupesRepository      
+  table: pme_groupes
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 255
+    role:
+      type: string
+      length: 20
+      unique: true  
+  manyToMany:     
+    referents:
+      targetEntity: Referents
+      mappedBy: groupes
+      cascade: [remove]     

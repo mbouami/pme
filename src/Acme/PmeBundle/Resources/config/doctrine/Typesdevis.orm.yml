@@ -1,0 +1,14 @@
+Acme\PmeBundle\Entity\Typesdevis:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\TypesdevisRepository   
+  table: pme_typesdevis
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 100  
+  lifecycleCallbacks: {  }

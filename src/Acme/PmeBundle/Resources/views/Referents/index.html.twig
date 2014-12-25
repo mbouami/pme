@@ -1,0 +1,67 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Referents list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Username</th>
+                <th>Salt</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Fixe</th>
+                <th>Mobile</th>
+                <th>Signature</th>
+                <th>Signatureweb</th>
+                <th>Isactive</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Connectedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('referents_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.nom }}</td>
+                <td>{{ entity.prenom }}</td>
+                <td>{{ entity.username }}</td>
+                <td>{{ entity.salt }}</td>
+                <td>{{ entity.password }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.fixe }}</td>
+                <td>{{ entity.mobile }}</td>
+                <td>{{ entity.signature }}</td>
+                <td>{{ entity.signatureweb }}</td>
+                <td>{{ entity.isActive }}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.connectedAt %}{{ entity.connectedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('referents_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('referents_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('referents_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

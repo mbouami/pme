@@ -1,0 +1,32 @@
+Acme\PmeBundle\Entity\Piecesjointes:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\PiecesjointesRepository      
+  table: pme_piecesjointes
+  fields:
+    id:
+      type: integer
+      id: true      
+      generator:
+        strategy: AUTO
+    document:
+      type: string
+      length: 100 
+      nullable: false
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at
+  manyToOne:
+    action:
+#      targetEntity: Actions
+#      mapped-by : piecejointe  
+      targetEntity:  Actions 
+      inversedBy: piecejointe
+      cascade: [ "persist", "remove"]
+      
+  lifecycleCallbacks: {  }     
+      

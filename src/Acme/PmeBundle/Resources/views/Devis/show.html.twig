@@ -1,0 +1,84 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Devis</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Dossier</th>
+                <td>{{ entity.dossier }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ entity.reference }}</td>
+            </tr>
+            <tr>
+                <th>Totalht</th>
+                <td>{{ entity.totalht }}</td>
+            </tr>
+            <tr>
+                <th>Tauxtva</th>
+                <td>{{ entity.tauxtva }}</td>
+            </tr>
+            <tr>
+                <th>Totaltva</th>
+                <td>{{ entity.totaltva }}</td>
+            </tr>
+            <tr>
+                <th>Totalttc</th>
+                <td>{{ entity.totalttc }}</td>
+            </tr>
+            <tr>
+                <th>Fraisport</th>
+                <td>{{ entity.fraisport }}</td>
+            </tr>
+            <tr>
+                <th>Observation</th>
+                <td>{{ entity.observation }}</td>
+            </tr>
+            <tr>
+                <th>Raisonclassement</th>
+                <td>{{ entity.raisonclassement }}</td>
+            </tr>
+            <tr>
+                <th>Classement</th>
+                <td>{{ entity.classement }}</td>
+            </tr>
+            <tr>
+                <th>Envoimail</th>
+                <td>{{ entity.envoimail }}</td>
+            </tr>
+            <tr>
+                <th>Priorite</th>
+                <td>{{ entity.priorite }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('devis') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('devis_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

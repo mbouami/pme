@@ -1,0 +1,14 @@
+Acme\PmeBundle\Entity\Typesadresse:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\TypesadresseRepository   
+  table: pme_typesadresse
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 100  
+  lifecycleCallbacks: {  }

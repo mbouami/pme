@@ -1,0 +1,18 @@
+Acme\PmeBundle\Entity\Pays:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\PaysRepository   
+  table: pme_pays
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 100 
+  oneToMany:
+    villes:
+      targetEntity:  Villes
+      mappedBy: pays      
+  lifecycleCallbacks: {  }

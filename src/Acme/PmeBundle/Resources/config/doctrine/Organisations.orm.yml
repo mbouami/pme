@@ -1,0 +1,90 @@
+Acme\PmeBundle\Entity\Organisations:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\OrganisationsRepository    
+  table: pme_organisations
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 100
+    adresse:
+      type: string
+      length: 255
+      nullable: true      
+    tel:
+      type: string
+      length: 20
+      nullable: true      
+    fax:
+      type: string
+      length: 20
+      fixed: false
+      nullable: true
+    email:
+      type: string
+      length: 100
+      nullable: true      
+    web:
+      type: string
+      length: 100  
+      nullable: true      
+    description:
+      type: text
+      nullable: true      
+    createdAt:
+      type: datetime
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      nullable: false
+      column: updated_at 
+  manyToMany:
+    organisationsliees:
+      targetEntity: Organisations
+      mappedBy: organisationliee        
+    organisationliee:  
+      targetEntity: Organisations
+      inversedBy: organisationsliees        
+      joinTable:
+        name: pme_organisations_liees
+        joinColumns:
+            organisation_id:
+              referencedColumnName: id                
+        inverseJoinColumns:
+            organisation_liee_id:
+              referencedColumnName: id       
+  oneToMany:
+    contact:
+      targetEntity: Contacts
+      mappedBy: organisation
+      cascade: [ "persist", "remove"]
+    devis:
+      targetEntity: Devis
+      mappedBy: organisation
+      cascade: [ "persist", "remove"]     
+    commande:
+      targetEntity: Commandes
+      mappedBy: organisation
+      cascade: [ "persist", "remove"]         
+    action:
+      targetEntity: Actions
+      mappedBy: organisation
+      cascade: [ "persist", "remove"]       
+  manyToOne:
+    ville:
+      targetEntity: Villes
+    referent:
+      targetEntity: Referents 
+    statut:
+      targetEntity: Statuts      
+  lifecycleCallbacks:
+    postUpdate: [ doStuffOnPostUpdate ]     
+    preUpdate: [ doStuffOnPreUpdate ]      
+#    postLoad: [ doStuffOnPostLoad ]      
+#    prePersist: [ doStuffOnPrePersist, doOtherStuffOnPrePersist ]
+#    postPersist: [ doStuffOnPostPersist ] 

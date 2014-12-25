@@ -1,0 +1,30 @@
+referents:
+    path:     /
+    defaults: { _controller: "AcmePmeBundle:Referents:index" }
+
+referents_show:
+    path:     /{id}/show
+    defaults: { _controller: "AcmePmeBundle:Referents:show" }
+
+referents_new:
+    path:     /new
+    defaults: { _controller: "AcmePmeBundle:Referents:new" }
+
+referents_create:
+    path:     /create
+    defaults: { _controller: "AcmePmeBundle:Referents:create" }
+    requirements: { _method: post }
+
+referents_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AcmePmeBundle:Referents:edit" }
+
+referents_update:
+    path:     /{id}/update
+    defaults: { _controller: "AcmePmeBundle:Referents:update" }
+    requirements: { _method: post|put }
+
+referents_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AcmePmeBundle:Referents:delete" }
+    requirements: { _method: post|delete }

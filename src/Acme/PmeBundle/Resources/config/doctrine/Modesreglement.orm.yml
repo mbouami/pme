@@ -1,0 +1,14 @@
+Acme\PmeBundle\Entity\Modesreglement:
+  type: entity
+  repositoryClass: Acme\PmeBundle\Entity\Repository\ModesreglementRepository      
+  table: pme_modesreglement
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    type:
+      type: string
+      length: 255
+  lifecycleCallbacks: {  }    

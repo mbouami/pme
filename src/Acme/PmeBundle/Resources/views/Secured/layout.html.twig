@@ -1,0 +1,34 @@
+{% extends "::base.html.twig" %}
+{% trans_default_domain 'ProsalesBundle' %}
+{% block title %}Authentification!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/acmeprosales/css/login.css') }}" /> 
+{% endblock %}
+{% block body %}
+<form id="login-form" action="{{ path('_security_check') }}" method="post">
+<fieldset>
+
+    <legend id="login-legend">Login</legend>
+
+    <label for="login">{{ 'security.login.username'|trans }}</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+    <div class="clear"></div>
+
+    <label for="password">{{ 'security.login.password'|trans }}</label>
+    <input type="password" id="password" name="_password"/>
+    <div class="clear"></div>
+
+    <label for="remember_me" style="padding: 0;">{{ 'security.login.remember_me'|trans }}</label>
+    <input type="checkbox" id="remember_me" style="position: relative; top: 3px; margin: 0; " name="remember_me" checked/>
+    <div class="clear"></div>
+
+    <br />
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <input type="submit" style="margin: -20px 0 0 287px;" class="button" name="commit" value="Se Connecter"/>	
+</fieldset>
+</form>
+{% if error %}
+    <div class="erreur">{{ error.message|trans }}</div>
+{% endif %}
+{% endblock %}
+
