@@ -40,7 +40,8 @@ class OrganisationsController extends Controller
                                         'fax'=>$organisation->getFax(),
                                         'idreferent'=>$organisation->getReferent()->getId(),                            
                                         'referent'=>$organisation->getReferent()->__toString(),
-                                        'nomville'=>$organisation->getVille()?$organisation->getVille()->__toString():null,                         
+//                                        'nomville'=>$organisation->getVille()?$organisation->getVille()->__toString():null,                         
+                                        'nomville'=>$organisation->getVille()?$organisation->getVille()->getNom():null,                           
                                         'cat'=>'organisation'
                         );
                 }       
@@ -64,7 +65,9 @@ class OrganisationsController extends Controller
                             "message"=>"Liste des contacts"); 
             if ($id!=null) {
                 $organisation = $em->getRepository('AcmePmeBundle:Organisations')->find($id); 
-                $detailorganisation = array('contacts'=>$organisation->getListecontacts(),
+                $detailorganisation = array(
+                                            'detail'=>$organisation->getDetail(),                  
+                                            'contacts'=>$organisation->getListecontacts(),
   //                                            'devis'=>$organisation->getListedevis(),
                                             'devis'=>array('identifier'=> 'id','items'=>$organisation->getListedevis()),                     
                                             'commandes'=>$organisation->getListecommandes(),

@@ -111,6 +111,7 @@ class Villes
     
     public function __toString()
     {
-        return sprintf('%s (%s-%s)',$this->getNom(),$this->getCp(),$this->getPays()->getNom());
+//        return sprintf('%s (%s-%s)',$this->getNom(),$this->getCp(),$this->getPays()->getNom());
+       return sprintf('%s %s-%s',$this->getCp(),$this->getNom(),$this->getPays()->getNom());      
     }      
 }

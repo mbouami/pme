@@ -96,9 +96,13 @@ return declare("GrilleOrganisations", Grid,{
             this.idselectionne= evt.rowId;               
 //            this.select.row.clear();
 //            this.row(evt.rowId).select();
-            var detail = registry.byId("detail");
-            detail.set('href','organisations/'+evt.rowId+'/show');
+//            var detail = registry.byId("detail");
+//            detail.set('href','organisations/'+evt.rowId+'/show');
             detailorganisationstore.query("?id="+evt.rowId).then(function(results){
+                dijit.registry.byId("nomorganisation").set('value',results.resultat.detail.nom);
+                dijit.registry.byId("adresseorganisation").set('value',results.resultat.detail.adresse);  
+                dijit.registry.byId("telorganisation").set('value',results.resultat.detail.tel);          
+                dijit.registry.byId("faxorganisation").set('value',results.resultat.detail.fax);                 
                 grillecontacts.setStore(new Memory({data: results.resultat.contacts }));   
                 grilledevis.setStore(new Memory({
                                                     data: results.resultat.devis,

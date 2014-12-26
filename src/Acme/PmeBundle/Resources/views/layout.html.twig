@@ -65,7 +65,28 @@ Pme Bundle
                             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:true" id="zonecentralhautdroite">
                                 <div data-dojo-type="dijit/layout/TabContainer" id="tabPane">
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Détail" data-dojo-props="selected:true,id:'detail'">
-
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td>
+                                                    <nomorganisation>
+                                                        Nom : <input id="nomorganisation" type="text" data-dojo-type="dijit/form/TextBox" style="width: 250px">
+                                                    </nomorganisation>
+                                                    <adresseorganisation>
+                                                        Adresse : <input id="adresseorganisation" type="text" data-dojo-type="dijit/form/TextBox" style="width: 300px">
+                                                    </adresseorganisation>                                                     
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <telorganisation>
+                                                        Tél : <input id="telorganisation" type="text" data-dojo-type="dijit/form/TextBox" style="width: 150px">
+                                                    </telorganisation>   
+                                                    <faxorganisation>
+                                                        Fax : <input id="faxorganisation" type="text" data-dojo-type="dijit/form/TextBox" style="width: 150px">
+                                                    </faxorganisation>                                                  
+                                                </td>
+                                            </tr>                                            
+                                        </table>                                            
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Contacts" data-dojo-props="id:'contacts'">
                                         <div id="zonecontacts"></div>

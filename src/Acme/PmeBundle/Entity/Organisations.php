@@ -618,6 +618,17 @@ class Organisations
         $this->updatedAt = new \DateTime();
     }
     
+    public function getDetail(){
+    	 
+      $detail = array("id"=>$this->getId(),
+                        "nom"=>$this->getNom(),
+                        "adresse"=>$this->getAdresse()." ".$this->getVille(), 
+                        "tel"=>$this->getTel(),  
+                        "fax"=>$this->getFax(),   
+                        "referent"=>$this->getReferent()->__toString(),         
+        );
+    	return $detail;
+    }     
     public function getListecontacts(){
     	 
     	$listecontacts = array();
