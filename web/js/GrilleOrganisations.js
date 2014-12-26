@@ -102,7 +102,8 @@ return declare("GrilleOrganisations", Grid,{
                 dijit.registry.byId("nomorganisation").set('value',results.resultat.detail.nom);
                 dijit.registry.byId("adresseorganisation").set('value',results.resultat.detail.adresse);  
                 dijit.registry.byId("telorganisation").set('value',results.resultat.detail.tel);          
-                dijit.registry.byId("faxorganisation").set('value',results.resultat.detail.fax);                 
+                dijit.registry.byId("faxorganisation").set('value',results.resultat.detail.fax);    
+                dijit.registry.byId("referentorganisation").set('value',results.resultat.detail.referent);                  
                 grillecontacts.setStore(new Memory({data: results.resultat.contacts }));   
                 grilledevis.setStore(new Memory({
                                                     data: results.resultat.devis,

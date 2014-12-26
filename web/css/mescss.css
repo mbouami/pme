@@ -48,7 +48,7 @@ footer {
     font-size: 15px;
 }
 
-nomorganisation
+nomorganisation telorganisation referentorganisation
 {
     display: inline-block;
     vertical-align: top;
@@ -60,17 +60,6 @@ nomorganisation
     /*top: 5px;*/      
 }
 
-telorganisation
-{
-    display: inline-block;
-    vertical-align: top;
-    float: left;
-    /*width: 150px;*/
-    /*border: 1px solid black;*/
-    position: relative;
-    left: 10px;
-    /*top: 5px;*/      
-}
 adresseorganisation
 {
     display: inline-block;
