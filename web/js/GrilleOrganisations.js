@@ -99,11 +99,12 @@ return declare("GrilleOrganisations", Grid,{
 //            var detail = registry.byId("detail");
 //            detail.set('href','organisations/'+evt.rowId+'/show');
             detailorganisationstore.query("?id="+evt.rowId).then(function(results){
-                dijit.registry.byId("nomorganisation").set('value',results.resultat.detail.nom);
-                dijit.registry.byId("adresseorganisation").set('value',results.resultat.detail.adresse);  
-                dijit.registry.byId("telorganisation").set('value',results.resultat.detail.tel);          
-                dijit.registry.byId("faxorganisation").set('value',results.resultat.detail.fax);    
-                dijit.registry.byId("referentorganisation").set('value',results.resultat.detail.referent);                  
+//                dijit.registry.byId("nomorganisation").set('value',results.resultat.detail.nom);
+//                dijit.registry.byId("adresseorganisation").set('value',results.resultat.detail.adresse);  
+//                dijit.registry.byId("telorganisation").set('value',results.resultat.detail.tel);          
+//                dijit.registry.byId("faxorganisation").set('value',results.resultat.detail.fax);    
+//                dijit.registry.byId("referentorganisation").set('value',results.resultat.detail.referent);    
+                Afficher_Detail_Organisation(results.resultat.detail);                
                 grillecontacts.setStore(new Memory({data: results.resultat.contacts }));   
                 grilledevis.setStore(new Memory({
                                                     data: results.resultat.devis,

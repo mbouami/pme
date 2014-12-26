@@ -48,6 +48,18 @@ footer {
     font-size: 15px;
 }
 
+#deconnexion
+{
+    text-align: right;
+    visibility: hidden;      
+}
+
+#detailorganisation
+{
+    width: 100%;
+    visibility: hidden;      
+}
+
 nomorganisation telorganisation referentorganisation
 {
     display: inline-block;

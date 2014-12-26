@@ -760,3 +760,18 @@ function sendFile(file,uri) {
     // Initiate a multipart/form-data upload
     xhr.send(fd);
 }
+
+function Afficher_Detail_Organisation(detail) { 
+      require([
+      "dijit/registry",
+      "dojo/dom-style",
+      "dojo/domReady!"
+        ], function(registry,domStyle){
+                domStyle.set("detailorganisation", 'visibility', 'visible');
+                registry.byId("nomorganisation").set('value',detail.nom);
+                registry.byId("adresseorganisation").set('value',detail.adresse);  
+                registry.byId("telorganisation").set('value',detail.tel);          
+                registry.byId("faxorganisation").set('value',detail.fax);    
+                registry.byId("referentorganisation").set('value',detail.referent);       
+        })     
+}

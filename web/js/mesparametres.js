@@ -6,7 +6,8 @@ require([
 	'gridx/tests/support/stores/ItemFileWriteStore',
 	'gridx/allModules',
         'dojo/store/Memory',
-        "dojo/store/JsonRest",        
+        "dojo/store/JsonRest", 
+        "dojo/dom-style",
 	'gridx/Grid',
         'dijit/Editor',
 	'gridx/core/model/cache/Sync',
@@ -32,7 +33,7 @@ require([
         "Agenda",
         "MyEditor",    
 	'dojo/domReady!'
-], function(parser, Deferred, dataSource, nestedDataSource, storeFactory, modules,Memory,JsonRest){
+], function(parser, Deferred, dataSource, nestedDataSource, storeFactory, modules,Memory,JsonRest,domStyle){
           
 var url = window.location.href;
 var userlogin, usernom, usergroupe, userrole, userid, refuser;
@@ -337,7 +338,8 @@ var userlogin, usernom, usergroupe, userrole, userid, refuser;
         });       
         modelesStore.query().then(function(modele){ 
                     StoreModeles = new Memory({data: modele});                        
-        });          
+        });        
+        domStyle.set("deconnexion", 'visibility', 'visible');        
 //	parser.parse();
 });        
 
