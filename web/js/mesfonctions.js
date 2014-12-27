@@ -7,9 +7,8 @@ function openpdf(method,url) {
                                 }
     }   
     oReq.open(method, url, true);
-    oReq.setRequestHeader("Content-type","application/x-www-form-urlencoded");    
-    oReq.send();    
-//window.open(url,'_blank');
+//    oReq.setRequestHeader("Content-type","application/x-www-form-urlencoded");    
+    oReq.send();
 }
 
 function sendMessage(method,form,niveau) {

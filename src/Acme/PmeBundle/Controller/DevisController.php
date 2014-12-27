@@ -156,6 +156,7 @@ class DevisController extends Controller
                             'paiement'    => $parametrepaiement,
         ));
         if (file_exists($outputfile)) unlink ($outputfile);
+//          $snappy = new Pdf($this->getWebDir(). '../vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64');         
 //        $snappy = $this->get('knp_snappy.pdf');
 //        $snappy->setOption('outline', true);
 //        $snappy->setOption('background', true);        
@@ -176,8 +177,10 @@ class DevisController extends Controller
 //        $this->get('knp_snappy.pdf')->setOption('footer-font-size','8');  
 //        $this->get('knp_snappy.pdf')->setOption('footer-spacing','-5');       
 //        $this->get('knp_snappy.pdf')->setOption('footer-center', '20 Allée des Erables Bat D- Bp64162 - 95978 Roissy CDG Cedex  FRANCE<br>Info@progiss.com - www.progiss.com - Tel 01 49 89 07 90 - Fax 01 49 89 07 91<br>SAS au capital de 43750 Euros  - Siret :49901977600024 R.C.S Bobigny N° TVA : FR43499019776');        
-        $this->get('knp_snappy.pdf')->setOption('footer-right','Page [page] sur [toPage]');         
+//        $this->get('knp_snappy.pdf')->setOption('footer-right','Page [page] sur [toPage]');         
         $this->get('knp_snappy.pdf')->generateFromHtml($html, $outputfile);
+//          $snappy->setOption('footer-right','Page [page] sur [toPage]');            
+//          $snappy->generateFromHtml($html, $outputfile);           
         return $outputfile;        
     }    
     
