@@ -195,7 +195,7 @@ define([
                                                 array.map(lesdevis, function(iddevis){
                                                     if (iddevis>0) {
                                                         var href = iddevis+"/afficherdevis";
-                                                        window.open(href,'_blank');                                                        
+                                                        window.open(href,'Devis en cours','_blank');                                                        
                                                     }    
                                                 });                                                                                                 
                                          }

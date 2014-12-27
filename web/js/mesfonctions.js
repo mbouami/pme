@@ -3,7 +3,7 @@ function openpdf(method,url) {
     oReq.onload = function(e) {  
                                 if (this.status == 200) {
                                   var data = JSON.parse(oReq.response); 
-                                  window.open(data.url,data.message);
+                                  window.open(data.url,data.message,'_blank');
                                 }
     }   
     oReq.open(method, url, true);
