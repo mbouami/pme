@@ -115,7 +115,7 @@ class DevisType extends AbstractType
                                                         'data-dojo-props' =>"id:'devis_totaltva_$this->niv',constraints:{fractional:true},currency: 'EUR',lang: 'fr-fr',invalidMessage:'Vous devez saisir un format valide'",
 //                                                        'value'=>0,                                             
                                                         'class' => 'alignement_a_droite', 
-                                                        'style' =>'width: 120px',                                          
+                                                        'style' =>'width: 120px;',                                          
 //                                                        'onChange' =>"Calculer_Total_TTC();"                                             
                                                     )) )
             ->add('fraisport',null,array('label'=>'Frais de port : ',                

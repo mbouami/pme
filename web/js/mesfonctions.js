@@ -586,12 +586,12 @@ function Calculer_Total_TVA(){
    )}
       
 function Activer_Liste(choix,liste){
-    require(["dojo/domReady!"],
-    function(){
-        if (choix.get('value')) {
-                liste.set('style', { visibility:'hidden' });    
+    require(["dojo/dom-style","dojo/domReady!"],
+    function(domStyle){
+        if (choix.get('value')) { 
+                domStyle.set(liste, 'visibility', 'hidden');                
         } else {
-                liste.set('style', { visibility:'visible' });    
+                domStyle.set(liste, 'visibility', 'visible');                   
         }
     }
 )}      

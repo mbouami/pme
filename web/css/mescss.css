@@ -72,6 +72,13 @@ nomorganisation telorganisation referentorganisation
     /*top: 5px;*/      
 }
 
+.grilleadresses
+{
+    display: inline-block;
+    width:300px;
+    visibility: hidden;
+}
+
 adresseorganisation
 {
     display: inline-block;

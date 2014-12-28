@@ -41,12 +41,17 @@
             </td>               
         </tr>        
         <tr>
-            <td>{{ form_row(form.livrermemeadresse) }}</td>
-            <td colspan="2">{#{{ form_row(form.livraison) }}#}</td>            
+{#            <td>{{ form_row(form.livrermemeadresse, { 'attr': {'onChange': 'console.log(this.get("value"))'} }) }}</td>#}
+{#            <td>{{ form_row(form.livrermemeadresse) }}</td>#}
+            <td colspan="3" style="text-align: left;position: inherit; bottom: 0px;vertical-align: top;">
+                {{ form_row(form.livrermemeadresse) }}<br>{{ form_widget(form.adresseslivraisons) }}
+            </td>            
         </tr>      
         <tr>
-            <td>{{ form_row(form.facturermemeadresse) }}</td>
-            <td colspan="2">{#{{ form_row(form.facturation) }}#}</td>            
+{#            <td>{{ form_row(form.facturermemeadresse) }}</td>#}
+            <td colspan="3" style="text-align: left;position: inherit; bottom: 0px;vertical-align: top;">
+                {{ form_row(form.facturermemeadresse) }}<br>{{ form_widget(form.adressesfacturations) }}
+            </td>            
         </tr>          
     </table>  
         {{ form(form) }}

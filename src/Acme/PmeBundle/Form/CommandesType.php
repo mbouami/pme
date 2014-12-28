@@ -99,19 +99,38 @@ class CommandesType extends AbstractType
             ->add('livrermemeadresse',null,array('label'=>'Livraison à la même adresse : ',
                                         'required'=>false,                
                                          'attr'=> array(
-                                                        'data-dojo-id'=> 'livraisonmemeadresse',                                             
+//                                                        'data-dojo-id'=> 'livraisonmemeadresse',                                             
                                                         'data-dojo-type' =>'dijit/form/CheckBox',
-                                                        'data-dojo-props' =>"id:'commande_livrermemeadresse_$this->niv',checked:true",                                               
+                                                        'data-dojo-props' =>"id:'commande_livrermemeadresse_$this->niv',checked:true", 
+                                                        'onChange' =>"Activer_Liste(this,'adresseslivraisons_$this->niv');"
+//                                                        'onChange'=>"console.log(this.get('value'))"
 //                                                        'onChange' =>"Activer_Liste(livraisonmemeadresse,adresselivraison);"
                                                     )) ) 
+            ->add('adresseslivraisons',null,array(
+                                         'mapped' => false,
+                                         'attr'=> array(    
+                                                        'data-dojo-id'=> 'adresseslivraisons',                                              
+                                                        'data-dojo-type' =>'GrilleAdresses',
+                                                        'data-dojo-props'=> "id:'adresseslivraisons_$this->niv',niveau:'$this->niv'",
+//                                                        'style'=>"width:200px;disabled: true"                                           
+                                                    )))           
             ->add('facturermemeadresse',null,array('label'=>'Facturation à la même adresse : ',
                                         'required'=>false,                
                                          'attr'=> array(
-                                                        'data-dojo-id'=> 'facturationmemeadresse',                                             
+//                                                        'data-dojo-id'=> 'facturationmemeadresse',                                             
                                                         'data-dojo-type' =>'dijit/form/CheckBox',
-                                                        'data-dojo-props' =>"id:'commande_facturermemeadresse_$this->niv',checked:true",                                               
+                                                        'data-dojo-props' =>"id:'commande_facturermemeadresse_$this->niv',checked:true",
+                                                        'onChange' =>"Activer_Liste(this,'adressesfacturations_$this->niv');"                                           
 //                                                        'onChange' =>"Activer_Liste(facturationmemeadresse,adressefacturation);"
-                                                    )) )    
+                                                    )) )  
+            ->add('adressesfacturations',null,array(
+                                         'mapped' => false,
+                                         'attr'=> array(    
+                                                        'data-dojo-id'=> 'adressesfacturations',                                              
+                                                        'data-dojo-type' =>'GrilleAdresses',
+                                                        'data-dojo-props'=> "id:'adressesfacturations_$this->niv',niveau:'$this->niv'",
+//                                                        'style'=>"width:200px;disabled: true"                                            
+                                                    )))              
 //            ->add('createdAt')
 //            ->add('updatedAt')
             ->add('modereglement',null,array('label'=>'Mode de réglement : ',

@@ -65,16 +65,7 @@ return declare("GrilleProduits", Grid,{
                             var results = grillelignesdevis.store.query({ reference: this.model.byId(evt.rowId).rawData.reference });
                             array.map(results, function(lignedevis,index){ 
                                 grillelignesdevis.store.remove(lignedevis.id);
-                            })                            
-//                            for (i=0;i<results.length;i++){
-//                                grillelignesdevis.store.remove(results[i].id);
-//                            } 
-//                            
-//grillelignesdevis.store.query({reference:this.model.byId(evt.rowId).rawData.reference}).then(function(results){
-//                            array.map(results, function(lignedevis,index){ 
-//                                grillelignesdevis.store.remove(lignedevis.id);
-//                            })    
-//});                            
+                            })                                      
                             grillelignesdevis.OrdonnerLesLignes();                                      
                         } 
                         grillelignesdevis.calculerTotaux();

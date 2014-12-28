@@ -20,7 +20,28 @@ return declare("GrilleAdresses", Grid,{
         selectRowMultiple: false,
 //        selectRowTriggerOnCell: true,        
         cacheClass: Cache,        
-        class: 'grilleadresses',         
+        class: 'grilleadresses',  
+        store : new Memory({ data: null}),
+        structure: [ 
+                    {field: 'adresse',name: 'Adresse',width:'100px', expandLevel: 'all',widgetsInCell: true}
+                   ], 
+	modules : [
+                        modules.Tree,
+//                        modules.Pagination,
+//                        modules.PaginationBar,
+                        modules.ColumnResizer,
+        		modules.SelectRow,
+        		modules.IndirectSelectColumn,
+                        modules.VirtualVScroller,
+                        modules.SingleSort,
+                        modules.RowHeader,
+//                        modules.IndirectSelect,
+//                        modules.Filter,
+//                        modules.FilterBar,
+//                        modules.QuickFilter,
+//                        modules.Menu,
+//                        modules.Bar,        
+                ],          
         constructor: function(){
             _this = this;                                     
         },        

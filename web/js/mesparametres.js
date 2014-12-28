@@ -30,6 +30,7 @@ require([
         "GrilleStatuts",
         "GrilleCentresInterets",
         "GrilleModeles",
+        "GrilleAdresses",        
         "Agenda",
         "MyEditor",    
 	'dojo/domReady!'

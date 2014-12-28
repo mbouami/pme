@@ -98,13 +98,7 @@ return declare("GrilleLignesDevis", Grid,{
             this.store = new Memory({ data: JSON.parse(args.donnees)});
         },        
 	postCreate: function(){      
-            this.inherited(arguments);            
-//            if (this.iddevis > 0) {
-//                lignesdevisStore.query({ iddevis: this.iddevis }).then(function(lesproduits){                     
-//                    _this.setStore(new Memory({data: lesproduits }));  
-//                    _this.calculerTotaux();
-//                });  
-//            }                
+            this.inherited(arguments);                        
             this.menu.bind(new MenuLignesDevis(), {
                                                 hookPoint: "grid",
                                                 selected: false
@@ -187,7 +181,7 @@ return declare("GrilleLignesDevis", Grid,{
                     totalht: lignedevis["totalht"],     
                         });                       
                 });
-                console.log(lignesdevis);
+//                console.log(lignesdevis);
                 return lignesdevis;
         },          
     });      
