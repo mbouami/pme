@@ -6,7 +6,7 @@ function(JsonRest) {
         adressesStores = new JsonRest({target: "listeadresses"});
         contactsStore = new JsonRest({target: "listecontacts"});   
         produitsStore = new JsonRest({target: "listeproduits"});   
-        devisStore = new JsonRest({target: "/public/gestionzen/gestion/Devis/listedevis"});
+//        devisStore = new JsonRest({target: "/public/gestionzen/gestion/Devis/listedevis"});
         devisencoursStore = new JsonRest({target: "devisencours"});         
         lignesdevisStore = new JsonRest({target: "lignesdevis"});     
         lignescommandeStore = new JsonRest({target: "lignescommande"}); 

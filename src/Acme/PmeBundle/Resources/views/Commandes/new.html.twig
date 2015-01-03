@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    {{ form_start(form, {'attr': {'onsubmit':'return sendForm("POST",this,"grillecommandes");','enctype':'multipart/form-data'}}) }}       
+    {{ form_start(form, {'attr': {'onsubmit':'sendFormCommandeXHR("POST",this,niveau,"grillecommandes");return  false;','enctype':'multipart/form-data'}}) }}       
         {{ form_errors(form) }}  
     <table border='0'>
 {#        <tr>
@@ -44,13 +44,13 @@
 {#            <td>{{ form_row(form.livrermemeadresse, { 'attr': {'onChange': 'console.log(this.get("value"))'} }) }}</td>#}
 {#            <td>{{ form_row(form.livrermemeadresse) }}</td>#}
             <td colspan="3" style="text-align: left;position: inherit; bottom: 0px;vertical-align: top;">
-                {{ form_row(form.livrermemeadresse) }}<br>{{ form_widget(form.adresseslivraisons) }}
+                {{ form_row(form.livrermemeadresse) }}<br>{{ form_widget(form.adresseslivraisons) }}{{ form_widget(form.ajoutadresseslivraisons) }}
             </td>            
         </tr>      
         <tr>
 {#            <td>{{ form_row(form.facturermemeadresse) }}</td>#}
             <td colspan="3" style="text-align: left;position: inherit; bottom: 0px;vertical-align: top;">
-                {{ form_row(form.facturermemeadresse) }}<br>{{ form_widget(form.adressesfacturations) }}
+                {{ form_row(form.facturermemeadresse) }}<br>{{ form_widget(form.adressesfacturations) }}{{ form_widget(form.ajoutadressesfacturations) }}
             </td>            
         </tr>          
     </table>  

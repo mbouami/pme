@@ -1,3 +1,7 @@
+acme_pme_adresseslivraisonsfacturations:
+    resource: "@AcmePmeBundle/Resources/config/routing/adresseslivraisonsfacturations.yml"
+    prefix:   /adresseslivraisonsfacturations
+
 acme_pme_contacts:
     resource: "@AcmePmeBundle/Resources/config/routing/contacts.yml"
     prefix:   /contacts
@@ -28,6 +32,11 @@ AcmePmeBundle_liste_tauxtva:
     pattern:  /listetauxtva
     defaults: { _controller: AcmePmeBundle:Default:listetauxtva }     
     
+    
+AcmePmeBundle_liste_adresses:
+    pattern:  /listeadresses
+    defaults: { _controller: AcmePmeBundle:Adresseslivraisonsfacturations:listeadresses }     
+       
 AcmePmeBundle_liste_services:
     pattern:  /listeservices
     defaults: { _controller: AcmePmeBundle:Default:listeservices }    
@@ -47,6 +56,10 @@ AcmePmeBundle_liste_modelescourriers:
 AcmePmeBundle_liste_organisations:
     pattern:  /listeorganisations
     defaults: { _controller: AcmePmeBundle:Organisations:listeorganisations }
+    
+AcmePmeBundle_liste_contacts:
+    pattern:  /listecontacts
+    defaults: { _controller: AcmePmeBundle:Organisations:listecontacts }      
    
 AcmePmeBundle_liste_villes_par_pays:
     pattern:  /listevilles

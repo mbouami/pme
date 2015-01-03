@@ -37,6 +37,25 @@ function sendMessage(method,form,niveau) {
     oReq.send(formData);
   }   
 }
+function AjouterAdresse(method,form,niveau) {
+    var formData = new FormData(form);
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, form.action, true);
+    xhr.onload = function(e) { 
+                                if (this.status == 200) {
+                                  var data = JSON.parse(this.response);
+                                  if (data.resultat.type.indexOf("Livraison")!=-1) {
+                                    dijit.registry.byId("adresseslivraisons_"+niveau).store.add(data.resultat);                                      
+                                  }
+                                  if (data.resultat.type.indexOf("Facturation")!=-1) {
+                                    dijit.registry.byId("adressesfacturations_"+niveau).store.add(data.resultat);                                      
+                                  }
+                                }
+        
+                            };
+    xhr.send(formData);
+    return false; // Prevent page from submitting.    
+}
 function sendForm(method,form,grille) {
     var formData = new FormData(form);
     var xhr = new XMLHttpRequest();
@@ -50,7 +69,7 @@ function sendForm(method,form,grille) {
                         grilleencours.store.add(data.resultat);
                         if (data.type=="commande") {
                             grilledevisencours.store.remove(data.iddevis);                             
-                        }                        
+                        }                          
                     }
                     if (data.action=="update" && data.type !="referent") {
                         grilleencours.store.put(data.resultat, {id: data.resultat.id,overwrite :true});                        
@@ -85,6 +104,64 @@ function sendFormDevisXHR(method,form,niveau,grille) {
         });
       });    
 }
+
+function sendFormCommandeXHR(method,form,niveau,grille) {
+    require(["dojo/request/xhr", "dojo/dom","dojo/dom-form","dijit/registry", "dojo/dom-construct", "dojo/json", "dojo/on", "dojo/domReady!"],
+    function(xhr, dom,domForm,registry, domConst, JSON, on){
+        var lesdonnees = domForm.toObject(form);
+        var grillelivraisons = registry.byId("adresseslivraisons_"+niveau);
+        var grillefacturations = registry.byId("adressesfacturations_"+niveau);        
+        xhr(form.action,{
+          data: lesdonnees,
+          method : method,            
+          query: {
+            idlivraison: (grillelivraisons.select.row.getSelected().length==1)?grillelivraisons.select.row.getSelected()[0]:0,
+            idfacturation: (grillefacturations.select.row.getSelected().length==1)?grillefacturations.select.row.getSelected()[0]:0,
+          },
+          handleAs: "json"
+        }).then(function(resultats){
+                    var ongletencours = resultats.idonglet;  
+                    var grilleencours = dijit.registry.byId(grille);
+                    if (resultats.action=="new" && resultats.type=="commande") {                        
+                        grilleencours.store.add(resultats.resultat);
+                        grilledevisencours.store.remove(resultats.iddevis);                    
+                    }
+                    FermerZone(ongletencours,"onglet");                                    
+//               FermerZone(ongletencours,"onglet");             
+        })
+      });  
+
+//    var xhr_object = null;
+//    if(window.XMLHttpRequest) // Firefox 
+//        xhr_object = new XMLHttpRequest(); 
+//    else if(window.ActiveXObject) // Internet Explorer 
+//        xhr_object = new ActiveXObject("Microsoft.XMLHTTP"); 
+//    else { // XMLHttpRequest non supporté par le navigateur 
+//        alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest..."); 
+//    return; 
+//    }
+//    var grillelivraisons = dijit.registry.byId("adresseslivraisons_"+niveau);
+//    var grillefacturations = dijit.registry.byId("adressesfacturations_"+niveau);
+//    var idlivraison = (grillelivraisons.select.row.getSelected().length==1)?grillelivraisons.select.row.getSelected()[0]:0;
+//    var idfacturation = (grillefacturations.select.row.getSelected().length==1)?grillefacturations.select.row.getSelected()[0]:0;    
+//    form.action += "?idlivraison="+idlivraison+"&idfacturation="+idfacturation;
+////    var formData = new FormData(form);    
+//    xhr_object.open(method, form.action, true); 
+//    xhr_object.onreadystatechange = function() { 
+//               if(xhr_object.readyState == 4) { 
+////                  var tmp = xhr_object.responseText.split(":"); 
+////                  if(typeof(tmp[1]) != "undefined") { 
+////                     f.elements["string1_r"].value = tmp[1]; 
+////                     f.elements["string2_r"].value = tmp[2]; 
+////                  } 
+//                  alert(xhr_object.responseText); 
+//               } 
+//            }    
+//    if(method == "POST") xhr_object.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 	 
+//    xhr_object.send(form);
+//    return false; // Prevent page from submitting.    
+}
+
 function sendFormDevis(method,form,niveau,grille) {
     var formData = new FormData(form);
     var xhr = new XMLHttpRequest();
@@ -129,6 +206,7 @@ function sendLignesDevis(method,href,niveau,iddevis) {
         })
       });    
 }
+
 
 function Execute_href(method,url,grille) {
     var xhr = new XMLHttpRequest();
@@ -585,13 +663,25 @@ function Calculer_Total_TVA(){
     }
    )}
       
-function Activer_Liste(choix,liste){
-    require(["dojo/dom-style","dojo/domReady!"],
-    function(domStyle){
+function Activer_Liste(choix,liste,boutton,url,iddevis){
+    require(["dijit/registry","dojo/dom","dojo/dom-style","dojo/store/Memory","dijit/TooltipDialog","dijit/form/DropDownButton","dojo/domReady!"],
+    function(registry,dom,domStyle,Memory,TooltipDialog,DropDownButton){
+//    var myDialog = new TooltipDialog({
+//        href:"adresseslivraisonsfacturations/new?niveau="+niv
+//    });        
+        var myDialog = new TooltipDialog({
+            href:url
+        });    
+        registry.byId(boutton).set('dropDown',myDialog);
         if (choix.get('value')) { 
-                domStyle.set(liste, 'visibility', 'hidden');                
-        } else {
-                domStyle.set(liste, 'visibility', 'visible');                   
+            domStyle.set(liste, 'visibility', 'hidden'); 
+            domStyle.set(boutton, 'visibility', 'hidden');
+        } else { 
+//    console.log(StoreAdresses.query(function(object){
+//        return object.type.indexOf("Facturation")!=-1;
+//    }));            
+            domStyle.set(liste, 'visibility', 'visible'); 
+            domStyle.set(boutton, 'visibility', 'visible');                   
         }
     }
 )}      

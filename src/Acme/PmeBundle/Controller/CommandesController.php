@@ -39,7 +39,9 @@ class CommandesController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Commandes();
-        $niveau = $request->get("niveau");  
+        $niveau = $request->get("niveau"); 
+        $idlivraison = $request->get("idlivraison"); 
+        $idfacturation= $request->get("idfacturation");         
         $sortie = array("erreur"=>true,
                         "action" => "new",
                         "type"=>"commande",
@@ -69,6 +71,14 @@ class CommandesController extends Controller
                     $lignecommande->setTotalht($lignedevis->getTotalht());     
                     $lignecommande->setDescription($lignedevis->getDescription());
                     $entity->addLignescommande($lignecommande);
+            }  
+            if (!$entity->getLivrermemeadresse() && $idlivraison>0) {
+              $adresselivraison = $em->getRepository('AcmePmeBundle:Adresseslivraisonsfacturations')->find($idlivraison);
+              $entity->setLivraison($adresselivraison);
+            }
+            if (!$entity->getFacturermemeadresse() && $idfacturation>0) {
+              $adressefacturation = $em->getRepository('AcmePmeBundle:Adresseslivraisonsfacturations')->find($idfacturation);
+              $entity->setFacturation($adressefacturation);
             }            
             $em->flush();
             $em->remove($devis->getParentOriginedevis());
@@ -93,14 +103,14 @@ class CommandesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Commandes $entity,$iddevis,$niveau)
+    private function createCreateForm(Commandes $entity,$iddevis=0,$niveau)
     {
         $form = $this->createForm(new CommandesType($niveau,$iddevis,json_encode($entity->getListeproduits())), $entity, array(
             'action' => $this->generateUrl('commandes_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Enregistrer'));
 
         return $form;
     }
@@ -145,6 +155,7 @@ class CommandesController extends Controller
 
         return $this->render('AcmePmeBundle:Commandes:new.html.twig', array(
             'entity' => $commande,
+            'niveau' => $niveau,
             'form'   => $form->createView(),
         ));
     }

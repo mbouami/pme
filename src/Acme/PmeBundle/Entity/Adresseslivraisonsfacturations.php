@@ -60,6 +60,8 @@ class Adresseslivraisonsfacturations
     public function __construct()
     {
         $this->typesadresse = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -265,4 +267,13 @@ class Adresseslivraisonsfacturations
     {
         return $this->typesadresse;
     }
+    
+    public function getAdresseComplete()
+    {
+        return $this->adresse."<br>".$this->ville->getCp()." ".$this->ville->getNom()." ".$this->ville->getPays();
+    }    
+    public function __toString()
+    {
+        return sprintf('%s (%s)',$this->getAdresse(),$this->getTypesadresse());
+    }     
 }

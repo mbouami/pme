@@ -25,16 +25,6 @@ class CommandesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('numcommande','text',array('label'=>'NumCommande : ',
-//                                        'read_only'=>true,
-////                                        'disabled'=>true,                
-//                                        'attr'=> array(
-//                                                        'data-dojo-type' =>'dijit/form/TextBox',
-//                                                        'data-dojo-props' =>"id:'commande_numcommande_$this->niv'",                                                
-//                                                        'placeHolder' => 'numéro de la commande',
-//                                                        'style'=>"width:100px;",
-////                                                        'onChange'=>"Afficher_Produits(\"produits\");Afficher_Lignes_Devis(\"lignesdevis\");"
-//                                                    )) )
             ->add('produitscommande',null,array(
                                         'mapped' => false,
                                          'attr'=> array(                                               
@@ -102,7 +92,7 @@ class CommandesType extends AbstractType
 //                                                        'data-dojo-id'=> 'livraisonmemeadresse',                                             
                                                         'data-dojo-type' =>'dijit/form/CheckBox',
                                                         'data-dojo-props' =>"id:'commande_livrermemeadresse_$this->niv',checked:true", 
-                                                        'onChange' =>"Activer_Liste(this,'adresseslivraisons_$this->niv');"
+                                                        'onChange' =>"Activer_Liste(this,'adresseslivraisons_$this->niv','ajoutadresseslivraisons_$this->niv','adresseslivraisonsfacturations/new?niveau=$this->niv&iddevis=$this->iddevis',$this->iddevis);"
 //                                                        'onChange'=>"console.log(this.get('value'))"
 //                                                        'onChange' =>"Activer_Liste(livraisonmemeadresse,adresselivraison);"
                                                     )) ) 
@@ -111,16 +101,26 @@ class CommandesType extends AbstractType
                                          'attr'=> array(    
                                                         'data-dojo-id'=> 'adresseslivraisons',                                              
                                                         'data-dojo-type' =>'GrilleAdresses',
-                                                        'data-dojo-props'=> "id:'adresseslivraisons_$this->niv',niveau:'$this->niv'",
+//                                                        'data-dojo-props'=> "id:'adresseslivraisons_$this->niv',niveau:'$this->niv'",                                           
+                                                        'data-dojo-props'=> "id:'adresseslivraisons_$this->niv',niveau:'$this->niv',store:StoreAdressesLivraisons",                                                    
 //                                                        'style'=>"width:200px;disabled: true"                                           
-                                                    )))           
+                                                    )))   
+            ->add('ajoutadresseslivraisons',null,array(
+                                         'mapped' => false,
+                                         'attr'=> array(    
+                                                        'data-dojo-id'=> 'ajoutadresseslivraisons',                                              
+                                                        'data-dojo-type' =>'dijit/form/DropDownButton',
+                                                        'data-dojo-props'=> "id:'ajoutadresseslivraisons_$this->niv',niveau:'$this->niv',label: 'Ajouter'",
+//                                                        'onClick' =>"console.log('adresseslivraisons_$this->niv');",
+                                                        'style'=>"visibility: hidden"                                           
+                                                    )))              
             ->add('facturermemeadresse',null,array('label'=>'Facturation à la même adresse : ',
                                         'required'=>false,                
                                          'attr'=> array(
 //                                                        'data-dojo-id'=> 'facturationmemeadresse',                                             
                                                         'data-dojo-type' =>'dijit/form/CheckBox',
                                                         'data-dojo-props' =>"id:'commande_facturermemeadresse_$this->niv',checked:true",
-                                                        'onChange' =>"Activer_Liste(this,'adressesfacturations_$this->niv');"                                           
+                                                        'onChange' =>"Activer_Liste(this,'adressesfacturations_$this->niv','ajoutadressesfacturations_$this->niv','adresseslivraisonsfacturations/new?niveau=$this->niv&iddevis=$this->iddevis',$this->iddevis);"                                           
 //                                                        'onChange' =>"Activer_Liste(facturationmemeadresse,adressefacturation);"
                                                     )) )  
             ->add('adressesfacturations',null,array(
@@ -128,11 +128,19 @@ class CommandesType extends AbstractType
                                          'attr'=> array(    
                                                         'data-dojo-id'=> 'adressesfacturations',                                              
                                                         'data-dojo-type' =>'GrilleAdresses',
-                                                        'data-dojo-props'=> "id:'adressesfacturations_$this->niv',niveau:'$this->niv'",
+//                                                        'data-dojo-props'=> "id:'adressesfacturations_$this->niv',niveau:'$this->niv'",                                           
+                                                        'data-dojo-props'=> "id:'adressesfacturations_$this->niv',niveau:'$this->niv',store:StoreAdressesFacturation",                       
 //                                                        'style'=>"width:200px;disabled: true"                                            
+                                                    ))) 
+            ->add('ajoutadressesfacturations',null,array(
+                                         'mapped' => false,
+                                         'attr'=> array(    
+                                                        'data-dojo-id'=> 'ajoutadressesfacturations',                                              
+                                                        'data-dojo-type' =>'dijit/form/DropDownButton',
+                                                        'data-dojo-props'=> "id:'ajoutadressesfacturations_$this->niv',niveau:'$this->niv',label: 'Ajouter'",
+//                                                        'onClick' =>"console.log('adressesfacturations_$this->niv');",
+                                                        'style'=>"visibility: hidden"                                         
                                                     )))              
-//            ->add('createdAt')
-//            ->add('updatedAt')
             ->add('modereglement',null,array('label'=>'Mode de réglement : ',
                                         'required'=>false,                
                                          'attr'=> array(

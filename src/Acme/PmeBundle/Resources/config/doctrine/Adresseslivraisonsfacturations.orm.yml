@@ -16,6 +16,7 @@ Acme\PmeBundle\Entity\Adresseslivraisonsfacturations:
       length: 255
     description:
       type: text
+      nullable: true      
     createdAt:
       type: datetime
       nullable: false

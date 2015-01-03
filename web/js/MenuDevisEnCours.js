@@ -24,26 +24,7 @@ define([
         constructor: function(){ 
         },
         postCreate: function(){
-            this.inherited(arguments); 
-//            this.addChild(new MenuItem({
-//                                label: "Ajouter un devis",
-//                                onClick: function(){   
-//                                            niveau++;                                    
-//                                            var selection = grilleorganisations.select.row.getSelected();
-//                                            if (selection.length==1){ 
-//                                                var idorg = selection[0];                                               
-//                                                var nomeorg = grilleorganisations.model.byId(selection).rawData.nom; 
-//                                            var parametres_onglet = {
-//                                                                        id : "new_devis_"+idorg,
-//                                                                        title : "Création d'un nouveau devis de l'organisation : "+nomeorg,
-//                                                                        href: "devis/new?idorg="+idorg+"&niveau="+niveau,
-//                                                                        closable: true,
-//                                                                        selected: true 
-//                                                                    }; 
-//                                            AjouterOnglet("zoneonglets",parametres_onglet);
-//                                            }                                                                                                                              
-//                                         }
-//                            }));                             
+            this.inherited(arguments);                            
             this.addChild(new MenuItem({
                                 label: "Supprimer les devis sélectionnés",
                                 onClick: function(){
@@ -124,6 +105,12 @@ define([
                                             if (selection.length==1){ 
                                                 var iddevis = selection[0]; 
                                                 var reference = grilledevisencours.model.byId(selection).rawData.reference; 
+                                                adressesStores.query("?iddevis="+iddevis+"&idtype=2").then(function(adresses){ 
+                                                            StoreAdressesLivraisons = new Memory({data: adresses});
+                                                });        
+                                                adressesStores.query("?iddevis="+iddevis+"&idtype=1").then(function(adresses){ 
+                                                            StoreAdressesFacturation = new Memory({data: adresses});
+                                                });                 
                                                 var parametres_onglet = {
                                                                             id : "new_commande_"+iddevis,                                                    
 //                                                                            id : "reception_commande_"+iddevis,
@@ -132,51 +119,10 @@ define([
                                                                             href: "commandes/new?iddevis="+iddevis+"&niveau="+niveau,                                                                           closable: true,
                                                                             selected: true 
                                                                         };  
-                                                AjouterOnglet("zoneonglets",parametres_onglet);                                                                          
-//                                            var process = asyncProcess(parametres_onglet);
-//                                            process.then(function(value){
-////                                              Afficher_Produits("produits");
-//                                              Afficher_Lignes_Devis("lignesdevis",iddevis);
-//                                            },
-//                                            function(error){
-//                                              console.log('erreur');
-//                                            });                                          
+                                                AjouterOnglet("zoneonglets",parametres_onglet);                                         
                                             }                                                                                                                              
                                          }
                             }));                                
-//            this.addChild(new MenuItem({
-//                                label: "Dupliquer le devis selectionné",
-//                                onClick: function(){
-//                                            niveau++;                                    
-//                                            var selection = grilledevis.select.row.getSelected();
-////                                            array.map(selection, function(devis){                                     
-////                                                var href = devis+"/dupliquerdevis";
-////                                                Executer_url(href,"POST")      
-////                                            });   
-//                                          if (selection.length==1){ 
-//                                                var iddevis = selection[0]; 
-//                                                var reference = grilledevis.model.byId(selection).rawData.reference; 
-//                                                var parametres_onglet = {
-//                                                                            id : "duppliquer_devis_"+iddevis,
-//                                                                            title : "Dupliquer le devis : "+reference,
-//                                                                            href: iddevis+"/dupliquerdevis?niveau="+niveau,
-//                                                                            closable: true,
-//                                                                            selected: true 
-//                                                                        };   
-//                                            AjouterOnglet("zoneonglets",parametres_onglet);                                                                              
-////                                            var process = asyncProcess(parametres_onglet);
-////                                            process.then(function(value){
-////                                              Afficher_Produits("produits");
-////                                              Afficher_Lignes_Devis("lignesdevis",iddevis);
-////                                            },
-////                                            function(error){
-////                                              console.log('erreur');
-////                                            });                                                                        
-////                                                AjouterOnglet("zoneonglets",parametres_onglet); 
-////                                                AfficherDialogue(parametres_onglet);                                                 
-//                                            } 
-//                                         }
-//                            }));
             this.addChild(new MenuItem({
                                 label: "Imprimer le devis sélectionné",
                                 onClick: function(){

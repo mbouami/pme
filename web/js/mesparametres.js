@@ -205,12 +205,12 @@ var userlogin, usernom, usergroupe, userrole, userid, refuser;
 	];
         store_null = new Memory({ data: null});
         
-        produitsStore.query().then(function(produits){ 
-                    StoreProduits = new Memory({
-                    data: produits
-                    }); 
-//                    grilleproduits.setStore(StoreProduits);                        
-        });        
+//        produitsStore.query().then(function(produits){ 
+//                    StoreProduits = new Memory({
+//                    data: produits
+//                    }); 
+////                    grilleproduits.setStore(StoreProduits);                        
+//        });        
         
 	seed = 9973;
 
@@ -339,7 +339,7 @@ var userlogin, usernom, usergroupe, userrole, userid, refuser;
         });       
         modelesStore.query().then(function(modele){ 
                     StoreModeles = new Memory({data: modele});                        
-        });        
+        });       
         domStyle.set("deconnexion", 'visibility', 'visible');        
 //	parser.parse();
 });        

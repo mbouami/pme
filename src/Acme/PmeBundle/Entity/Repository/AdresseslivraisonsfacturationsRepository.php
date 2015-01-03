@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdresseslivraisonsfacturationsRepository extends EntityRepository
 {
+    public function getadresseparorganisationetpartype($idorg,$idtype) {
+        $q = $this
+            ->createQueryBuilder('u')
+            ->select('u,h, g')
+            ->leftJoin('u.organisation', 'h')            
+            ->leftJoin('u.typesadresse', 'g')
+            ->where('h.id=:idorg AND g.id = :idtype')
+            ->setParameter('idorg', $idorg)            
+            ->setParameter('idtype', $idtype)
+            ->getQuery();
+
+        try {
+            // La méthode Query::getSingleResult() lance une exception
+            // s'il n'y a pas d'entrée correspondante aux critères
+            $adresses = $q->getResult();
+        } catch (NoResultException $e) {
+            throw new UsernameNotFoundException(sprintf('Unable to find an active admin AcmePmeBundle:User object identified by "%s".', $type), 0, $e);
+        }
+        return $adresses;         
+    }  
 }

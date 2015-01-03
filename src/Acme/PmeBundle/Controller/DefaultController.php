@@ -141,7 +141,7 @@ class DefaultController extends Controller
               $response->setData($sortie);
               return $response;                
     }        
-            
+    
     public function AfficherTauxAction()
     {
         $taux = new Tauxtva();
