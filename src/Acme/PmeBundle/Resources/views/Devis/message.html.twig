@@ -24,7 +24,6 @@
                                     <button data-dojo-type="dijit/form/Button" type="button">Supprimer la sélection
                                         <script type="dojo/on" data-dojo-event="click" data-dojo-args="evt">
                                             require(["dojo/dom"], function(dom){
-{#                                                SupprimerlistefichierFiles('listefiles_{{ niveau }}','{{ href }}');#}
                                                 SupprimerlistefichierFiles('listefiles_{{ niveau }}');        
                                             });
                                         </script>
@@ -35,9 +34,7 @@
                                 {{ form_widget(form.modelecourrier) }}
                             </div>
                         </div>
-                    </div>                        
-{#                        <div id="listefichiers">{{ form_widget(form.listefile) }}</div> 
-                        <div id="zoneinfo">Aucun fichier sélectionné</div>  #}                                    
+                    </div>                                   
             
             </td>  
         </tr>               
@@ -57,104 +54,5 @@
         {{ form(form) }}
     {{ form_end(form) }}
 <script>
-{#var holder = document.getElementById('holder'),
-    state = document.getElementById('status');
-    #}
-{#window.URL = window.URL || window.webkitURL;
-
-fileElem = document.getElementById("fileElem");
-state = document.getElementById('status');
-fileList = document.getElementById("holder");
-
-fileList.addEventListener("dragenter", dragenter, false);
-fileList.addEventListener("dragover", dragover, false);
-fileList.addEventListener("drop", drop, false);
-function dragenter(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function dragover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  var dt = e.dataTransfer;
-  var files = dt.files;
-
-  handleFiles(files);
-}#}
-    
-{#function handleFiles(files) {
-    
-  if (!files.length) {
-    state.innerHTML = "<p>Aucun fichier sélectionné!</p>";
-  } else {
-    var list = document.createElement("ul");
-    for (var i = 0; i < files.length; i++) {
-      var li = document.createElement("li");
-      list.appendChild(li);
-      
-      var img = document.createElement("img");
-      img.src = window.URL.createObjectURL(files[i]);
-      img.height = 60;
-      img.onload = function(e) {
-        window.URL.revokeObjectURL(this.src);
-      }
-      li.appendChild(img);
-      
-      var info = document.createElement("span");
-      info.innerHTML = files[i].name + ": " + files[i].size + " bytes";
-      li.appendChild(info);
-    }
-    fileList.appendChild(list);
-  }
-}#}
-{#holder.addEventListener("dragenter", dragenter, false);
-holder.addEventListener("dragover", dragover, false);
-holder.addEventListener("drop", drop, false);
-function dragenter(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function dragover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  var dt = e.dataTransfer;
-  var files = dt.files;
-
-  handleFiles(files);
-}#}
-{#if (typeof window.FileReader === 'undefined') {
-  state.className = 'fail';
-} else {
-  state.className = 'success';
-  state.innerHTML = 'File API & FileReader available';
-}
- 
-holder.ondragover = function () { this.className = 'hover'; return false; };
-holder.ondragend = function () { this.className = ''; return false; };
-holder.ondrop = function (e) {
-  this.className = '';
-  e.preventDefault();
-
-  var file = e.dataTransfer.files[0],
-      reader = new FileReader();
-  reader.onload = function (event) {
-    console.log(event.target);
-    holder.style.background = 'url(' + event.target.result + ') no-repeat center';
-  };
-  console.log(file);
-  reader.readAsDataURL(file);
-
-  return false;
-};#}
 </script>    
 {% endblock %}

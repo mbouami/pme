@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Acme\PmeBundle\Entity\Lignesdevis;
-//use Acme\PmeBundle\Entity\Message;
+use Acme\PmeBundle\Entity\Message;
 use Acme\PmeBundle\Entity\Actions;
 use Acme\PmeBundle\Entity\Document;
 use Acme\PmeBundle\Entity\Piecesjointes;
@@ -285,7 +285,7 @@ class DevisController extends Controller
     private function createMessageForm(Message $entity,$niveau,$iddevis)
     {    
 //        $url = $this->generateUrl('AcmePmeBundle_upload');
-        $href_racine = $this->generateUrl('_welcome_prosales');        
+        $href_racine = $this->generateUrl('acme_pme_homepage');        
         $form = $this->createFormBuilder($entity)
             ->setAction($this->generateUrl('envoyer_devis', array('id' => $iddevis)))
             ->setMethod('POST')                 
@@ -386,7 +386,7 @@ class DevisController extends Controller
         $request = $this->getRequest();  
         $niveau = $request->get("niveau");       
 //        $url = $this->generateUrl('AcmePmeBundle_upload');
-        $href_racine = $this->generateUrl('_welcome_prosales');
+        $href_racine = $this->generateUrl('acme_pme_homepage');
         $em = $this->getDoctrine()->getManager(); 
         $devis = $em->getRepository('AcmePmeBundle:Devis')->find($id);  
         $contenumessage = "Bonjour ".$devis->getContact()."<br>
@@ -497,9 +497,6 @@ class DevisController extends Controller
                     }                     
                 }             
                 if (count($to)>0) {
-//                $signweb = $message->embed(\Swift_Image::fromPath($this->generateUrl({_welcome_prosales',array(),true)."../uploads/documents/signatureweb_".$entity->getReferent()->getId().".".$entity->getReferent()->getExtweb()));                 
-//                $signweb = $entity->getReferent()->getSignatureWeb()?utf8_encode(stream_get_contents($entity->getReferent()->getSignatureWeb())):null;               
-//                $signweb = $message->embed(\Swift_Image::newInstance($img_data, 'image.jpg', 'image/jpeg'));              
                     $messageaenvoyer ->setContentType("text/html")
                                     ->setSubject($form->get('objet')->getData())
                                     ->setFrom($devis->getReferent()->getEmail())
