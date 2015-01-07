@@ -90,7 +90,9 @@ return declare("GrilleLignesDevis", Grid,{
                         modules.CellWidget,
                         modules.Edit, 
                         modules.SelectRow,
-                        modules.ExtendedSelectRow,                        
+                        modules.ExtendedSelectRow, 
+			modules.MoveRow,
+			modules.DndRow,                           
                 ],         
         constructor: function(args){
             _this = this;          
@@ -183,7 +185,7 @@ return declare("GrilleLignesDevis", Grid,{
                 });
 //                console.log(lignesdevis);
                 return lignesdevis;
-        },          
+        },         
     });      
 });
 

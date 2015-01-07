@@ -45,7 +45,7 @@ return declare("GrilleDevis", Grid,{
                         modules.FilterBar,
                         modules.QuickFilter,
                         modules.Menu,
-                        modules.Bar,        
+                        modules.Bar,                      
                 ],          
         constructor: function(){
             _this = this;               
@@ -118,7 +118,7 @@ return declare("GrilleDevis", Grid,{
                                     item.unshift(produit);                    
                             }); 
                 });
-	},          
+	},     
     });       
 });
 
