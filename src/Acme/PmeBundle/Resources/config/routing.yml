@@ -1,3 +1,7 @@
+acme_pme_modelescourriers:
+    resource: "@AcmePmeBundle/Resources/config/routing/modelescourriers.yml"
+    prefix:   /modelescourriers
+
 acme_pme_adresseslivraisonsfacturations:
     resource: "@AcmePmeBundle/Resources/config/routing/adresseslivraisonsfacturations.yml"
     prefix:   /adresseslivraisonsfacturations
@@ -185,13 +189,21 @@ AcmePmeBundle_afficher_modeles:
     pattern:  /affichermodeles
     defaults: { _controller: "AcmePmeBundle:Modelescourriers:AfficherModeles" }  
     
+#AcmePmeBundle_modele_new:
+#    pattern:  /{nommodele}/{sujetmodele}/{descriptionmodele}/savemodele
+#    defaults: { _controller: "AcmePmeBundle:Modelescourriers:savemodele" }
+#    requirements: { _method: post|get }       
 AcmePmeBundle_modele_new:
-    pattern:  /{nommodele}/savemodele
+    pattern:  /savemodele
     defaults: { _controller: "AcmePmeBundle:Modelescourriers:savemodele" }
-    requirements: { _method: post }       
+    requirements: { _method: post|get }  
     
+#AcmePmeBundle_modele_update:
+#    pattern:  /{id}/{sujet}/{description}/updatemodele
+#    defaults: { _controller: "AcmePmeBundle:Modelescourriers:updatemodele" }
+#    requirements: { _method: post|delete }   
 AcmePmeBundle_modele_update:
-    pattern:  /{id}/{sujet}/{description}/updatemodele
+    pattern:  /{id}/updatemodele
     defaults: { _controller: "AcmePmeBundle:Modelescourriers:updatemodele" }
     requirements: { _method: post|delete }   
     

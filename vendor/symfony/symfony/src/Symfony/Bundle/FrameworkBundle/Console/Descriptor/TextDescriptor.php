@@ -11,7 +11,7 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Console\Descriptor;
 
-use Symfony\Component\Console\Helper\TableHelper;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -22,6 +22,8 @@ use Symfony\Component\Routing\RouteCollection;
 
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
+ *
+ * @internal
  */
 class TextDescriptor extends Descriptor
 {
@@ -32,8 +34,8 @@ class TextDescriptor extends Descriptor
     {
         $showControllers = isset($options['show_controllers']) && $options['show_controllers'];
         $headers = array('Name', 'Method', 'Scheme', 'Host', 'Path');
-        $table = new TableHelper();
-        $table->setLayout(TableHelper::LAYOUT_COMPACT);
+        $table = new Table($this->getOutput());
+        $table->setStyle('compact');
         $table->setHeaders($showControllers ? array_merge($headers, array('Controller')) : $headers);
 
         foreach ($routes->all() as $name => $route) {
@@ -100,8 +102,8 @@ class TextDescriptor extends Descriptor
      */
     protected function describeContainerParameters(ParameterBag $parameters, array $options = array())
     {
-        $table = new TableHelper();
-        $table->setLayout(TableHelper::LAYOUT_COMPACT);
+        $table = new Table($this->getOutput());
+        $table->setStyle('compact');
         $table->setHeaders(array('Parameter', 'Value'));
 
         foreach ($this->sortParameters($parameters) as $parameter => $value) {
@@ -201,8 +203,8 @@ class TextDescriptor extends Descriptor
         $tagsCount = count($maxTags);
         $tagsNames = array_keys($maxTags);
 
-        $table = new TableHelper();
-        $table->setLayout(TableHelper::LAYOUT_COMPACT);
+        $table = new Table($this->getOutput());
+        $table->setStyle('compact');
         $table->setHeaders(array_merge(array('Service ID'), $tagsNames, array('Class name')));
 
         foreach ($this->sortServiceIds($serviceIds) as $serviceId) {
@@ -304,27 +306,29 @@ class TextDescriptor extends Descriptor
         $registeredListeners = $eventDispatcher->getListeners($event);
         if (null !== $event) {
             $this->writeText("\n");
-            $table = new TableHelper();
+            $table = new Table($this->getOutput());
+            $table->getStyle()->setCellHeaderFormat('%s');
             $table->setHeaders(array('Order', 'Callable'));
 
             foreach ($registeredListeners as $order => $listener) {
                 $table->addRow(array(sprintf('#%d', $order + 1), $this->formatCallable($listener)));
             }
 
-            $this->renderTable($table);
+            $this->renderTable($table, true);
         } else {
             ksort($registeredListeners);
             foreach ($registeredListeners as $eventListened => $eventListeners) {
                 $this->writeText(sprintf("\n<info>[Event]</info> %s\n", $eventListened), $options);
 
-                $table = new TableHelper();
+                $table = new Table($this->getOutput());
+                $table->getStyle()->setCellHeaderFormat('%s');
                 $table->setHeaders(array('Order', 'Callable'));
 
                 foreach ($eventListeners as $order => $eventListener) {
                     $table->addRow(array(sprintf('#%d', $order + 1), $this->formatCallable($eventListener)));
                 }
 
-                $this->renderTable($table);
+                $this->renderTable($table, true);
             }
         }
     }

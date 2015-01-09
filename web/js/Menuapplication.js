@@ -106,6 +106,7 @@ define([
                                                     title : "Liste des modèles",
 //                                                    href: "referents/new?niveau="+niveau,
                                                     href : "affichermodeles",
+//                                                    href : "modelescourriers/new",
                                                     closable: true,
                                                     selected: true 
                                                 };

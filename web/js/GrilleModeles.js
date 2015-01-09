@@ -48,17 +48,15 @@ return declare("GrilleModeles", Grid,{
 	},                   
         onRowClick: function(evt){  
             modelecourrierStore.query("?id="+evt.rowId).then(function(modeleencours){
-                var descriptionmodele = dijit.registry.byId('modele_description');   
+                var descriptionmodele = dijit.registry.byId('descriptionmodele');   
                 var sujetmodele = dijit.registry.byId('sujetmodele');                   
                 descriptionmodele.set('value',(modeleencours.resultat.description!==null)?modeleencours.resultat.description:' ');   
                 sujetmodele.set('value',(modeleencours.resultat.sujet!==null)?modeleencours.resultat.sujet:' ');                  
             })                      
         },
 	Updatemodele : function(){
-            var descriptionmodele = dijit.registry.byId('modele_description');
+            var descriptionmodele = dijit.registry.byId('descriptionmodele');
             var sujetmodele = dijit.registry.byId('sujetmodele');
-//                console.log(this.select.row.getSelected()[0]);
-//console.log(descriptionmodele.value);
                 Execute_href('post',this.select.row.getSelected()[0]+'/'+sujetmodele.value+'/'+descriptionmodele.value+'/updatemodele',null);                
 	},        
 	AddElement : function(taux){

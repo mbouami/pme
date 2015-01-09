@@ -399,11 +399,14 @@ function Afficher_Modele(idmodele,iddevis,niveau){
             var messageobjet = dijit.registry.byId('message_objet_'+niveau);  
             detaildevisStore.query("?id="+iddevis).then(function(devisencours){
                 messagedescription.set('value',modeleencours.resultat.description
-                                                .replace("{{ devis.reference }}", devisencours.resultat.reference)
-                                                .replace("{{ devis.referent }}", devisencours.resultat.referent) 
-                                                .replace("{{ devis.contact }}", devisencours.resultat.contact) 
-                                                .replace("{{ niveau }}", niveau)    
-                                                .replace("{{ signatureweb }}", "<img src='"+devisencours.resultat.signatureweb+"'/>")                                                                                                  
+                                                .replace(/{{ devis.reference }}/g, devisencours.resultat.reference)
+                                                .replace(/{{ devis.referent }}/g, devisencours.resultat.referent) 
+                                                .replace(/{{ devis.contact }}/g, devisencours.resultat.contact) 
+                                                .replace(/{{ niveau }}/g, niveau)  
+                                                .replace(/{{ contact.nom }}/g, devisencours.resultat.contact)                                          
+                                                .replace(/{{ organisation.nom }}/g, devisencours.resultat.organisation)       
+                                                .replace(/{{ organisation.adresse }}/g, devisencours.resultat.adresseorganisation)                                           
+                                                .replace(/{{ signatureweb }}/g, "<img src='"+devisencours.resultat.signatureweb+"'/>")                                                                                                  
 //                                                .replace("{{ devis.signatureweb }}", "<canvas id='message_signatureweb_"+niveau+"'></canvas>")                                                  
 //                                                .replace("{{ devis.signatureweb }}", "<canvas id='message_signatureweb_"+niveau+"'><img src="+devisencours.resultat.signatureweb+"/></canvas>")                                                 
                                       );   
@@ -862,5 +865,16 @@ function Afficher_Detail_Organisation(detail) {
                 registry.byId("telorganisation").set('value',detail.tel);          
                 registry.byId("faxorganisation").set('value',detail.fax);    
                 registry.byId("referentorganisation").set('value',detail.referent);       
+        })     
+}
+
+function Affecter_Etat(destinataire,etat) { 
+      require([
+      "dijit/registry",
+      "dojo/dom-style",
+      "dojo/domReady!"
+        ], function(registry,domStyle){
+//                domStyle.set(destinataire, 'disabled', etat);            
+                registry.byId(destinataire).set('disabled',etat);     
         })     
 }
