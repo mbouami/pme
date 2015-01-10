@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Acme\PmeBundle\Entity\Devis;
 use Acme\PmeBundle\Form\DevisType;
+use Acme\PmeBundle\Form\DocumentType;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -498,9 +499,9 @@ class DevisController extends Controller
                     }                     
                 }             
                 if (count($to)>0) {
-                    $messageaenvoyer ->setContentType("text/html")
+                    $messageaenvoyer->setContentType("text/html")
                                     ->setSubject($form->get('objet')->getData())
-                                    ->setFrom($devis->getReferent()->getEmail())
+                                    ->setFrom(array($devis->getReferent()->getEmail() => $devis->getReferent()))
                                     ->setTo($to)                                                    
                                     ->setBody($form->get('description')->getData()); 
                     if (count($bcc)>0) $messageaenvoyer ->setBcc($bcc);                

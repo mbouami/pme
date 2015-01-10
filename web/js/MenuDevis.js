@@ -222,10 +222,17 @@ define([
             this.addChild(new MenuItem({
                                 label: "envoyer le devis sélectionné",
                                 onClick: function(){
+                                                niveau++;                                         
                                                 var lesdevis = grilledevis.select.row.getSelected();
                                                 array.map(lesdevis, function(iddevis){
-                                                    var href = iddevis+"/envoyerdevis";
-                                                    Executer_url(href,"POST")      
+                                                    var reference = grilledevis.model.byId(iddevis).rawData.reference; 
+                                                    var parametres_onglet = {
+                                                                                id : "new_message_"+iddevis,
+                                                                                title : "Envoi du Devis : "+reference,
+                                                                                href: iddevis+"/newMessage?niveau="+niveau,                                                                           closable: true,
+                                                                                selected: true 
+                                                                            };  
+                                                    AjouterOnglet("zoneonglets",parametres_onglet);      
                                                 });                                                                                                 
                                          }
                             }));                              
