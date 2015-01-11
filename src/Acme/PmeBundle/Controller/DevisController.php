@@ -154,6 +154,7 @@ class DevisController extends Controller
         } 
         $html = $this->renderView('AcmePmeBundle:Devis:imprimer.html.twig', array(
                             'entity'      => $devis,
+                            'devisparent'=> $devis->getParent()==null?null:$devis->getParent()->getReference(),           
                             'signature'=>$devis->getReferent()->getSignature()?utf8_encode(stream_get_contents($devis->getReferent()->getSignature())):null,          
                             'paiement'    => $parametrepaiement,
         ));
@@ -215,50 +216,10 @@ class DevisController extends Controller
                 'Content-Disposition'   => 'attachment; filename="'.$outputfile.'"'
             )
         );
-        
-//        $em = $this->getDoctrine()->getManager();
-//        $devis = $em->getRepository('AcmePmeBundle:Devis')->find($id);   
-//        $parametrepaiement = $em->getRepository('AcmePmeBundle:Parametres')->findOneBy(array('nom'=>'paiement'));
-//        $nomfichier = "Devis_".$devis->getReference().'.pdf';        
-//        $html = $this->renderView('AcmePmeBundle:Devis:imprimer.html.twig', array(
-//                            'entity'      => $devis,
-//                            'signature'=>$devis->getReferent()->getSignature()?utf8_encode(stream_get_contents($devis->getReferent()->getSignature())):null,          
-//                            'paiement'    => $parametrepaiement,
-//        ));
-//$outputfile = $this->generateUrl('acme_pme_homepage').'../uploads/documents/'.$nomfichier;         
-//
-//return new Response(
-//    $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-//    200,
-//    array(
-//        'Content-Type'          => 'application/pdf',
-//        'Content-Disposition'   => 'attachment; filename="'.$outputfile.'"'
-//    )
-//);        
-         
     }
     
     public function afficherdevisAction($id)
     { 
-//        $em = $this->getDoctrine()->getManager();
-//        $devis = $em->getRepository('AcmePmeBundle:Devis')->find($id);
-//        $parametrepaiement = $em->getRepository('AcmePmeBundle:Parametres')->findOneBy(array('nom'=>'paiement'));        
-//        $nomfichier = "Devis_".$devis->getReference().'.pdf'; 
-//        $outputfile = $this->getUploadRootDir().'/'.$nomfichier;
-//        $pageUrl = $this->renderView('AcmePmeBundle:Devis:imprimer.html.twig', array(
-//                            'entity'      => $devis,
-//                            'paiement'    => $parametrepaiement,
-//        ));
-//        return new Response(
-//            $this->get('knp_snappy.pdf')->getOutputFromHtml($pageUrl),
-//            200,
-//            array(
-//                'Content-Type'          => 'application/pdf',
-//                'Content-Disposition'   => 'attachment; filename="'.$outputfile.'"'
-//            )
-//        );  
-      
-      
         $em = $this->getDoctrine()->getManager();
         $devis = $em->getRepository('AcmePmeBundle:Devis')->find($id);   
         $parametrepaiement = $em->getRepository('AcmePmeBundle:Parametres')->findOneBy(array('nom'=>'paiement'));
@@ -269,20 +230,10 @@ class DevisController extends Controller
         }
         return $this->render('AcmePmeBundle:Devis:imprimer.html.twig', array(
                             'entity'      => $devis,
+                            'devisparent'=> $devis->getParent()==null?null:$devis->getParent()->getReference(),          
                             'signature'=>$devis->getReferent()->getSignature()?utf8_encode(stream_get_contents($devis->getReferent()->getSignature())):null,
                             'paiement'    => $parametrepaiement,
-        ));       
-      
-//$pageUrl = $this->generateUrl('acme_pme_homepage', array(), true); // use absolute path!
-//
-//return new Response(
-//    $this->get('knp_snappy.pdf')->getOutput($pageUrl),
-//    200,
-//    array(
-//        'Content-Type'          => 'application/pdf',
-//        'Content-Disposition'   => 'attachment; filename="file.pdf"'
-//    )
-//);      
+        ));   
     }    
     private function createMessageForm(Message $entity,$niveau,$iddevis)
     {    

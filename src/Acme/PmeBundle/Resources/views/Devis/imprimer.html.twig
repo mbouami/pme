@@ -12,8 +12,10 @@ Impression du devis {{ entity.reference }}
 {% block body -%} 
         <div style="display: inline-block;vertical-align: top;float: left;border: 1px solid black;position: relative;left: 10px;">
             <article>                
-                <h1>Devis</h1>
-                <p>{{ entity.reference }}</p>
+                <h1>Devis : {{ entity.reference }}</h1>
+                {% if devisparent %}
+                    <p style="color: red;font-style: italic;">Annule et remplace le devis {{ devisparent }}</p>
+                {% endif %}                
             </article>
         </div>    
         <div style="display: inline-block;vertical-align: top;float: right;border: 1px solid black;position: relative;left: -10px;">
