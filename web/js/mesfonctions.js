@@ -178,8 +178,8 @@ function sendFormDevis(method,form,niveau,grille) {
 }
 
 function sendLignesDevis(method,href,niveau,iddevis) {
-    require(["dojo/request/xhr", "dojo/dom","dojo/dom-form","dijit/registry", "dojo/dom-construct", "dojo/json", "dojo/on", "dojo/domReady!"],
-    function(xhr, dom,domForm,registry, domConst, JSON, on){
+    require(["dojo/request/xhr", "dojo/dom","dojo/dom-form","dijit/registry", "dojo/dom-construct", "dojo/json", "dojo/on","dojo/store/Memory", "dojo/domReady!"],
+    function(xhr, dom,domForm,registry, domConst, JSON, on,Memory){
         var grillelignesdevis = registry.byId("grillelignesdevis_"+niveau);
         var ongletencours = null;
         xhr(href,{
@@ -199,7 +199,17 @@ function sendLignesDevis(method,href,niveau,iddevis) {
 //                        ongletencours = "modifier_devis_"+resultats.resultat.iddevisparent;
 //                        ongletencours = "modifier_devis_"+niveau;
                     }                   
-                    grilledevisencours.store.add(resultats.resultat);
+                    grilledevisencours.store.add(resultats.resultat);                   
+//grilledevis.store.add(resultats.devis);                    
+//grilledevis.setStore(new Memory({
+//                                    data: resultats.devis,
+//                                    getChildren : function(item){
+//                                        return item.children;    
+//                                    },
+//                                    hasChildren : function(id, item){
+//                                        return item && item.children && item.children.length;
+//                                    }
+//                                }));                       
                 }
 //                    if (donnees.action=="update") grille.store.put(donnees.resultat, {id: donnees.resultat.id,overwrite :true}); 
                 FermerZone(ongletencours,"onglet");             

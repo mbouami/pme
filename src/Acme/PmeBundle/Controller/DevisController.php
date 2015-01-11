@@ -566,6 +566,7 @@ class DevisController extends Controller
             $sortie["iddevis"] = $entity->getId();             
             $sortie["idonglet"] = "new_devis_".$entity->getOrganisation()->getId(); 
             $sortie["resultat"] = $entity->getArrayDevis();
+           $sortie["devis"] = array('identifier'=> 'id','items'=>array('id'=>$entity->getDossier(),"reference"=>$entity->getDossier(),'cat'=>'dossier',"children"=>$entity->getArrayDevis())); 
         }
         $response = new JsonResponse();
         $response->setData($sortie);

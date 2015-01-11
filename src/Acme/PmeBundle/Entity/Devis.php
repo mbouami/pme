@@ -687,7 +687,7 @@ class Devis
                         'id'=>$this->getId(),
                         'reference'=>$this->getReference(),
                         'dossier'=>$this->getDossier(),
-                        'createdAt' =>  date_format($this->getCreatedAt(), "d-m-Y"),
+                        'datedevis' =>  date_format($this->getCreatedAt(), "d-m-Y"),       
                         'organisation' => $this->getOrganisation()->__toString(),            
                         'contact'=>$this->getContact()?$this->getContact()->__toString():null,
                         'referent'=>$this->getReferent()->__toString(),  

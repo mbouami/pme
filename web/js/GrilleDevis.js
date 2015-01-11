@@ -26,7 +26,7 @@ return declare("GrilleDevis", Grid,{
         store : new Memory({ data: null}),
         structure: [ 
                     {field: 'reference',name: 'Référence',width:'100px', expandLevel: 'all',widgetsInCell: true}, 
-                    {field: 'createdAt',name: 'Date',width:'100px'},        
+                    {field: 'datedevis',name: 'Date',width:'100px'},        
                     {field: 'contact',name: 'Contact',width:'100px'}, 
                     {field: 'referent',name: 'Le Référent',width:'250px'}   
                    ], 

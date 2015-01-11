@@ -644,7 +644,7 @@ class Organisations
     public function getListedevis(){
     
     	$listedevis = array();
-        $sortie = array();
+      $sortie = array();
     	$lesdevis = $this->getDevis();
     	if (count($lesdevis)>0){
         	foreach ($lesdevis as $key => $devis) {
@@ -654,7 +654,6 @@ class Organisations
                     $sortie[] = array('id'=>$key,"reference"=>$key,'cat'=>'dossier',"children"=>$value);
                 }                
     	}
-//    	return array('identifier'=> 'id','items'=>$sortie);
     	return $sortie;        
     }      
     
