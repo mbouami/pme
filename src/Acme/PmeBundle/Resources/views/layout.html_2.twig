@@ -2,7 +2,7 @@
 {% trans_default_domain 'PmeBundle' %}
 {% block head %}
     <link rel="icon" sizes="16x16" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-{#    <script>dojoConfig = {parseOnLoad: true}</script> #}
+    <script>dojoConfig = {parseOnLoad: true}</script> 
     <script>
         niveau = 1;
         username = '{{ app.user.__toString }}';  
@@ -53,10 +53,10 @@ Pme Bundle
                     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left', splitter:true" id="zonecentralgauche">
                         <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:false">
                             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:true" id="zonecentralhautgauche">
-                                <div id="grilleorganisations" data-dojo-type="GrilleOrganisations"></div>
+                                <div id="zoneetabs"></div>
                             </div>      
                             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" id="zonecentralbasgauche">
-                                <div id="grilledevisencours" data-dojo-type="GrilleDevisenCours"></div>
+                                <div id="zonedevisencours"></div>
                             </div>               
                         </div>
                     </div>      
@@ -96,19 +96,19 @@ Pme Bundle
                                         </table>                                            
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Contacts" data-dojo-props="id:'contacts'">
-                                        <div id="grillecontacts" data-dojo-type="GrilleContacts"></div>
+                                        <div id="zonecontacts"></div>
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Devis" data-dojo-props="closable:true,id:'devis'">
-                                        <div id="grilledevis" data-dojo-type="GrilleDevis"></div>
+                                        <div id="zonedevis"></div>
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Commandes" data-dojo-props="id:'commandes'">
-                                        <div id="grillecommandes" data-dojo-type="GrilleCommandes"></div>
+                                        <div id="zonecommandes"></div>
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Relances" data-dojo-props="closable:true,id:'relances'">
                                         <div id="zonerelances"></div>
                                     </div>       
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Actions" data-dojo-props="id:'actions'">
-                                        <div id="grilleactions" data-dojo-type="GrilleActions"></div>
+                                        <div id="zoneactions"></div>
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Les Devis Classés" data-dojo-props="closable:true,id:'devisclasses'">
 
@@ -118,11 +118,11 @@ Pme Bundle
                             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" id="zonecentralbasdroite">
                                 <div data-dojo-type="dijit/layout/TabContainer" id= "zoneongletsapercu">
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Calendrier" data-dojo-props="selected:true,id:'calendrier'">
-                                        <div id="agenda" data-dojo-type="Agenda" dateInterval="week" data-dojo-props="minHours:8, maxHours:19,hourSize:10"></div>
+                                        <div id="zoneagenda"></div>
                                     </div>
                                     <div data-dojo-type="dijit/layout/ContentPane" title="Apercu" data-dojo-props="id:'apercu'">
                                         <div class='zonemessage' id='zonemessage'></div>                                        
-                                        <div id="grilleapercudevis" data-dojo-type="GrilleApercuDevis"></div>
+                                        <div id="zoneapercu"></div>
                                         <div>
                                             <table style='width:100%;'>
                                                 <tr>

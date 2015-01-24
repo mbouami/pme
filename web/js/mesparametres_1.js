@@ -38,7 +38,7 @@ require([
           
 var url = window.location.href;
 var userlogin, usernom, usergroupe, userrole, userid, refuser;
-	parser.parse();                        
+                        
         niveau = 1;
         structure_organisations = [         
             {field: 'nom',name: 'Organisation',datatype: "string",width:'150px', filterable: true},
@@ -280,36 +280,48 @@ var userlogin, usernom, usergroupe, userrole, userid, refuser;
                         centreinteret_id: randomNumber(5)+1,
 		};
 	};        
-        new Menuapplication().placeAt("zonemenu");          
+        new Menuapplication().placeAt("zonemenu");  
+        grillecontacts = new GrilleContacts({
+                                id:'grillecontacts',
+                            }).placeAt("zonecontacts"); 
+        grilledevis = new GrilleDevis({
+                            id:'grilledevis',
+                        }).placeAt("zonedevis");   
+        grillecommandes = new GrilleCommandes({
+                            id:'grillecommandes',
+                        }).placeAt("zonecommandes"); 
+        grilleactions = new GrilleActions({
+                            id:'grilleactions',
+                        }).placeAt("zoneactions");                             
+        grilledevisencours = new GrilleDevisenCours({
+                            id:'grilledevisencours',
+                        }).placeAt("zonedevisencours");   
+        grilleapercudevis = new GrilleApercuDevis({
+                            id:'grilleapercudevis',
+                        }).placeAt("zoneapercu");
+        new Agenda({
+                        id: "agenda",
+                        cssClassFunc: function(item) {
+                          return item.cssClass;  
+                        },                                          
+                        columnViewProps:'{minHours:8,maxHours:19,hourSize:10}',
+                        dateInterval: "week",
+                        class: "agenda"
+                    }).placeAt("zoneagenda");             
         if (useradmin) {
             id = 0;
         } else {
             id = userid;
-        }   
-        grilleorganisations = dijit.registry.byId('grilleorganisations');
-        grilledevisencours = dijit.registry.byId('grilledevisencours');   
-        grillecontacts = dijit.registry.byId('grillecontacts');    
-        grilledevis = dijit.registry.byId('grilledevis');      
-        grillecommandes = dijit.registry.byId('grillecommandes');    
-        grilleactions = dijit.registry.byId('grilleactions');      
-        grilleapercudevis = dijit.registry.byId('grilleapercudevis');         
-        if (grilleorganisations) {
-            organisationstore.query("?id="+id).then(function(results){
-                grilleorganisations.setStore(new Memory({data: results.resultat }));
-            });
+        }            
+        organisationstore.query("?id="+id).then(function(results){
+            grilleorganisations = new GrilleOrganisations({
+                                        id:'grilleorganisations',
+                                        store:new Memory({ data: results.resultat})
+                                    }).placeAt("zoneetabs");     
             devisencoursStore.query("?id="+id).then(function(results){
                 grilledevisencours.setStore(new Memory({data: results.resultat }));             
-            });            
-        }
-//        organisationstore.query("?id="+id).then(function(results){
-//            grilleorganisations = new GrilleOrganisations({
-//                                        id:'grilleorganisations',
-//                                        store:new Memory({ data: results.resultat})
-//                                    }).placeAt("zoneetabs");     
-//            devisencoursStore.query("?id="+id).then(function(results){
-//                grilledevisencours.setStore(new Memory({data: results.resultat }));             
-//            });                                         
-//        });           
+            });                                         
+        });           
         produitsStore.query().then(function(produits){ 
                     StoreProduits = new Memory({data: produits});                        
         });    
@@ -329,5 +341,6 @@ var userlogin, usernom, usergroupe, userrole, userid, refuser;
                     StoreModeles = new Memory({data: modele});                        
         });       
         domStyle.set("deconnexion", 'visibility', 'visible');        
+//	parser.parse();
 });        
 
