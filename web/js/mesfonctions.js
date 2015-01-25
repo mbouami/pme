@@ -225,7 +225,7 @@ function Execute_href(method,url,grille) {
       if (this.status == 200) {
           var data = JSON.parse(this.response);
           if (grille!==null){
-                if (data.action=="delete") grille.RemoveElement(data.id);
+                if (data.action=="delete") grille.RemoveElement(data.id,data.dossier);
                 if (data.action=="new") grille.AddElement(data.resultat);                
 //              grille.store.remove(data.id);              
           } else {               

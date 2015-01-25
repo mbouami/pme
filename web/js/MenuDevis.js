@@ -78,19 +78,7 @@ define([
                                                                             };
                                                     AjouterOnglet("zoneonglets",parametres_onglet);                                                 
                                                 }
-                                            }) 
-//                                            if (selection.length==1){ 
-//                                                var iddevis = selection[0]; 
-//                                                var reference = grilledevis.model.byId(selection).rawData.reference; 
-//                                                var parametres_onglet = {
-//                                                                            id : "update_devis_"+iddevis,
-//                                                                            title : "Edition du devis : "+reference,
-//                                                                            href: "devis/"+iddevis+"/edit?niveau="+niveau,
-//                                                                            closable: true,
-//                                                                            selected: true 
-//                                                                        };
-//                                            AjouterOnglet("zoneonglets",parametres_onglet);                                                             
-//                                            }                                                                                                                              
+                                            })                                                                                                                             
                                          }
                             }));   
             this.addChild(new MenuItem({
@@ -98,17 +86,12 @@ define([
                                 onClick: function(){
                                             niveau++;                                    
                                             var selection = grilledevis.select.row.getSelected();
-                                            if (selection.length==1){ 
-                                                var iddevis = selection[0]; 
-                                                var reference = grilledevis.model.byId(selection).rawData.reference; 
+                                            if (selection.length==1 || selection.length==2) var iddevis = selection[0]; 
+                                            if (iddevis){ 
+                                                var reference = grilledevis.model.byId(iddevis).rawData.reference; 
                                                 var parametres_onglet = {
-//                                                                            id : "modifier_devis_"+iddevis,
-//                                                                            id : "new_devis_"+grilleorganisations.select.row.getSelected()[0],
-//                                                                            id : "modifier_devis_"+iddevis,
-//                                                                            id : "modifier_devis_"+niveau,
                                                                             id : "new_devis_"+niveau,
                                                                             title : "Modification du devis : "+reference,
-//                                                                            href: iddevis+"/modifierdevis?niveau="+niveau,
                                                                             href: "devis/new?iddevis="+iddevis+"&niveau="+niveau,                                                                            
                                                                             closable: true,
                                                                             selected: true 

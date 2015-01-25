@@ -738,7 +738,8 @@ class DevisController extends Controller
             $em->remove($entity);
             $em->flush();
             $sortie["erreur"] = false;
-            $sortie["id"] = $id;         
+            $sortie["id"] = $id;  
+            $sortie["dossier"] = $entity->getDossier();            
             $sortie["idorg"] = $entity->getOrganisation()->getId();          
             $sortie["message"] = "Le devis a été supprimé";              
         $response = new JsonResponse();

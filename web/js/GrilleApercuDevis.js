@@ -14,7 +14,7 @@ define([
 return declare("GrilleApercuDevis", Grid,{       
         loadingMessage: 'Chargement en cours ...', 
         noDataMessage: 'Aucun résultat trouvé.',
-//        autoHeight: true,
+        autoHeight: true,
 //        selectRowTriggerOnCell: true,
 //        singleClickEdit: true,
 //	autoWidth: true,

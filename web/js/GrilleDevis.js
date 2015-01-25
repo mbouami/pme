@@ -19,8 +19,7 @@ return declare("GrilleDevis", Grid,{
 //        singleClickEdit: true,
 //	autoWidth: true,
         selectRowMultiple: false,
-//        style: "width: 100%; height: 100%",
-        selectRowTriggerOnCell: true,        
+//        style: "width: 100%; height: 100%",       
         cacheClass: Cache,                                        
         class: 'grilledevis',    
         store : new Memory({ data: null}),
@@ -94,23 +93,11 @@ return declare("GrilleDevis", Grid,{
         },
 	RemoveElement : function(iddevis,dossier){
                 this.store.remove(iddevis);
+console.log(grilledevis.store.query({id:dossier}));                
                 if(this.store.query({id:dossier})[0].children.length==1){
+//                if (this.store.query({id:dossier}).length==1) {                    
                     this.store.remove(dossier);
                 }
-//                this.store.query({id:iddevis}).forEach(function(object){
-//                            array.map(object.devis.items, function(item,index){ 
-//                                if (item.id==dossier) {
-//                                    array.map(item.children, function(devis,indice){
-//                                        if (devis.id==iddevis){
-//                                             item.children.splice(indice, 1) 
-//                                        }
-//                                    }) 
-//                                }
-//                                if (item.children.length==0){
-//                                    object.devis.items.splice(index, 1)
-//                                }                                
-//                            }); 
-//                });
 	},      
 	AddProduit : function(dossier,produit){
                 this.store.query({id:dossier}).forEach(function(object){

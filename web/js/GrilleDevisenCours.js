@@ -84,12 +84,27 @@ return declare("GrilleDevisenCours", Grid,{
             }
         },
         getNomDossier: function(iddevis){
+//            if (this.store.query({id:iddevis}).length>0) {
+//                return this.store.query({id:iddevis})[0].dossier;                
+//            }
+//            return "";
             return this.store.query({id:iddevis})[0].dossier;
 //            return this.row(iddevis).item().dossier;
         },
-	RemoveElement : function(iddevis){  
-                var dossier = this.getNomDossier(iddevis);
-                this.store.remove(iddevis);            
+	RemoveElement : function(iddevis,dossier){  
+//                var dossier = this.getNomDossier(iddevis);
+//                if (dossier!="") {
+//                    grilledevis.RemoveElement(iddevis,dossier);                
+//                    this.store.remove(iddevis);                      
+//                }
+//                grilledevis.RemoveElement(iddevis,dossier); 
+//                if (dossier!="") {       
+//                    this.store.remove(iddevis);                    
+//                }     
+                if (this.store.query({id:iddevis}).length>0) {
+                    this.store.remove(iddevis);                
+                }
+//                this.store.remove(iddevis);            
                 grilledevis.RemoveElement(iddevis,dossier);
 	},           
     });     
