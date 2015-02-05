@@ -1,6 +1,6 @@
 # un commentaire, cette ligne est ignorée
 # pas de fichier .a
-*.md
+#*.md
 # mais suivre lib.a malgré la règle précédente
 #!lib.a
 # ignorer uniquement le fichier TODO à la racine du projet
@@ -9,6 +9,7 @@
 app/cache/
 app/logs/
 nbproject/
+vendor/
 # ignorer doc/notes.txt, mais pas doc/server/arch.txt
 #doc/*.txt
 # ignorer tous les fichiers .txt sous le répertoire doc/
