@@ -146,5 +146,5 @@ class Piecesjointes
     public function __toString()
     {
         return sprintf('%s',  $this->getDocument());
-    }    
+    }       
 }

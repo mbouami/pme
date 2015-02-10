@@ -271,9 +271,10 @@ class Adresseslivraisonsfacturations
     public function getAdresseComplete()
     {
         return $this->adresse."<br>".$this->ville->getCp()." ".$this->ville->getNom()." ".$this->ville->getPays();
-    }    
+    }
+    
     public function __toString()
     {
         return sprintf('%s (%s)',$this->getAdresse(),$this->getTypesadresse());
-    }     
+    }    
 }

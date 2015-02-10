@@ -20,9 +20,6 @@ Acme\PmeBundle\Entity\Referents:
       type: string
       length: 255
       unique: true
-    salt:
-      type: string
-      length: 255
     password:
       type: string
       length: 255 

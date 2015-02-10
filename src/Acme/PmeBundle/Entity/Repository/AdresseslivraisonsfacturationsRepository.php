@@ -31,5 +31,5 @@ class AdresseslivraisonsfacturationsRepository extends EntityRepository
             throw new UsernameNotFoundException(sprintf('Unable to find an active admin AcmePmeBundle:User object identified by "%s".', $type), 0, $e);
         }
         return $adresses;         
-    }  
+    }      
 }

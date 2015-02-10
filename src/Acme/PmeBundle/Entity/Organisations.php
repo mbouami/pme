@@ -116,7 +116,7 @@ class Organisations
         $this->organisationliee = new ArrayCollection();
         $this->organisationsliees = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();  
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -685,4 +685,5 @@ class Organisations
     {
         return sprintf('%s',$this->getNom());
     }     
+    
 }

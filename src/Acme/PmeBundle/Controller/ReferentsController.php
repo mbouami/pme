@@ -4,48 +4,26 @@ namespace Acme\PmeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\PmeBundle\Entity\Referents;
 use Acme\PmeBundle\Form\ReferentsType;
-
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Referents controller.
  *
+ * @Route("/referents")
  */
 class ReferentsController extends Controller
 {
 
-    private function setSecurePassword($entity) {
-        $factory = $this->get('security.encoder_factory');
-        $encoder = $factory->getEncoder($entity);      
-        $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-        $entity->setPassword($password);   
-    }    
-    
-    public function getSignaturesAction($id)
-    {
-        $lessignatures = array();
-        $em = $this->getDoctrine()->getManager();        
-        $referent = $em->getRepository('AcmePmeBundle:Referents')->find($id);
-        if (!$referent) {
-            throw $this->createNotFoundException('Unable to find Devis entity.');
-        }        
-
-        $lessignatures = array(
-                                "signature"=>$referent->getSignature()?utf8_encode(stream_get_contents($referent->getSignature())):null,
-                                "signatureweb"=>$referent->getSignatureWeb()?utf8_encode(stream_get_contents($referent->getSignatureWeb())):null
-                        );
-        $response = new JsonResponse();
-        $response->setData($lessignatures);
-        return $response;        
-    }
-    
     /**
      * Lists all Referents entities.
      *
+     * @Route("/", name="referents")
+     * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -53,38 +31,38 @@ class ReferentsController extends Controller
 
         $entities = $em->getRepository('AcmePmeBundle:Referents')->findAll();
 
-        return $this->render('AcmePmeBundle:Referents:index.html.twig', array(
+        return array(
             'entities' => $entities,
-        ));
+        );
     }
     /**
      * Creates a new Referents entity.
      *
+     * @Route("/", name="referents_create")
+     * @Method("POST")
+     * @Template("AcmePmeBundle:Referents:new.html.twig")
      */
     public function createAction(Request $request)
     {
         $entity = new Referents();
-        $niveau = $request->get("niveau");             
-        $sortie = array("erreur"=>true,
-                        "action" => "new",
-                        "type"=>"referent",
-                        "typezone" => "onglet",
-                        "message"=>"Le Référent n'a pas été enregistré");        
-        $form = $this->createCreateForm($entity,$niveau);
+        $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($entity, $entity->getPassword());
+            $entity->setPassword($encoded);            
             $em = $this->getDoctrine()->getManager();
-            $this->setSecurePassword($entity);
             $em->persist($entity);
             $em->flush();
-            $sortie["erreur"] = false;
-            $sortie["message"] = "Le Référent a été enregistré avec succès";  
-            $sortie["idonglet"] = "new_referent";              
+
+            return $this->redirect($this->generateUrl('referents_show', array('id' => $entity->getId())));
         }
-        $response = new JsonResponse();
-        $response->setData($sortie);
-        return $response;
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
     }
 
     /**
@@ -94,9 +72,9 @@ class ReferentsController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Referents $entity,$niveau)
+    private function createCreateForm(Referents $entity)
     {
-        $form = $this->createForm(new ReferentsType($niveau), $entity, array(
+        $form = $this->createForm(new ReferentsType(), $entity, array(
             'action' => $this->generateUrl('referents_create'),
             'method' => 'POST',
         ));
@@ -109,24 +87,27 @@ class ReferentsController extends Controller
     /**
      * Displays a form to create a new Referents entity.
      *
+     * @Route("/new", name="referents_new")
+     * @Method("GET")
+     * @Template()
      */
     public function newAction()
     {
         $entity = new Referents();
-        $request = $this->getRequest();        
-        $niveau = $request->get("niveau");          
-        $form   = $this->createCreateForm($entity,$niveau);
+        $form   = $this->createCreateForm($entity);
 
-        return $this->render('AcmePmeBundle:Referents:new.html.twig', array(
+        return array(
             'entity' => $entity,
-            'niveau' =>$niveau,
             'form'   => $form->createView(),
-        ));
+        );
     }
 
     /**
      * Finds and displays a Referents entity.
      *
+     * @Route("/{id}", name="referents_show")
+     * @Method("GET")
+     * @Template()
      */
     public function showAction($id)
     {
@@ -139,39 +120,38 @@ class ReferentsController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        return $this->render('AcmePmeBundle:Referents:show.html.twig', array(
+
+        return array(
             'entity'      => $entity,
-            'signature' => stream_get_contents($entity->getSignature()),
-            'signatureweb' => stream_get_contents($entity->getSignatureweb()),            
-            'delete_form' => $deleteForm->createView()));
+            'delete_form' => $deleteForm->createView(),
+        );
     }
 
     /**
      * Displays a form to edit an existing Referents entity.
      *
+     * @Route("/{id}/edit", name="referents_edit")
+     * @Method("GET")
+     * @Template()
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();        
-        $niveau = $request->get("niveau");
+
         $entity = $em->getRepository('AcmePmeBundle:Referents')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Referents entity.');
         }
 
-        $editForm = $this->createEditForm($entity,$niveau);
+        $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('AcmePmeBundle:Referents:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
-            'niveau' =>$niveau,            
-            'signature' => $entity->getSignature()?stream_get_contents($entity->getSignature()):null,
-            'signatureweb' => $entity->getSignatureweb()?stream_get_contents($entity->getSignatureweb()):null,             
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -181,9 +161,9 @@ class ReferentsController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Referents $entity,$niveau)
+    private function createEditForm(Referents $entity)
     {
-        $form = $this->createForm(new ReferentsType($niveau), $entity, array(
+        $form = $this->createForm(new ReferentsType(), $entity, array(
             'action' => $this->generateUrl('referents_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -195,47 +175,44 @@ class ReferentsController extends Controller
     /**
      * Edits an existing Referents entity.
      *
+     * @Route("/{id}", name="referents_update")
+     * @Method("PUT")
+     * @Template("AcmePmeBundle:Referents:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager(); 
-        $request = $this->getRequest();        
-        $niveau = $request->get("niveau");        
-        $sortie = array("erreur"=>true,
-                        "action" => "update",
-                        "type"=>"referent",
-                        "typezone" => "onglet",                
-                        "message"=>"Le référent n'a pas été mis à jours");
+        $em = $this->getDoctrine()->getManager();
+
         $entity = $em->getRepository('AcmePmeBundle:Referents')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Referents entity.');
         }
 
-//        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity,$niveau);
-        $current_pass = $entity->getPassword();          
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            if ($current_pass != $entity->getPassword()) {
-                $entity->setSalt(md5(uniqid(null, true)));            
-                $this->setSecurePassword($entity);
-            }    
-//            $entity->upload();            
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($entity, $entity->getPassword());
+            $entity->setPassword($encoded);             
             $em->flush();
-            $sortie["erreur"] = false;
-            $sortie["message"] = "Le référent a été mis à jours avec succès";  
-            $sortie["idonglet"] = "update_referent_".$entity->getId();                        
-//            return $this->redirect($this->generateUrl('referents_edit', array('id' => $id)));
+
+            return $this->redirect($this->generateUrl('referents_edit', array('id' => $id)));
         }
-        $response = new JsonResponse();
-        $response->setData($sortie);
-        return $response;
+
+        return array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
     }
     /**
      * Deletes a Referents entity.
      *
+     * @Route("/{id}", name="referents_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

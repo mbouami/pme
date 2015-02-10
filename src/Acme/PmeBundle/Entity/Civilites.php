@@ -112,5 +112,5 @@ class Civilites
     public function __toString()
     {
         return sprintf('%s',$this->getLibellecourt());
-    }      
+    }       
 }

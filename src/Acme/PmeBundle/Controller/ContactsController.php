@@ -4,41 +4,60 @@ namespace Acme\PmeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\PmeBundle\Entity\Contacts;
 use Acme\PmeBundle\Form\ContactsType;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Contacts controller.
  *
+ * @Route("/contacts")
  */
 class ContactsController extends Controller
 {
-    public function editNomMelAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();   
-        $niveau = $request->get("niveau");        
-        $contact = $em->getRepository('AcmePmeBundle:Contacts')->find($id);
-        $sortie = array("erreur"=>false,
-                        "action" => "nommel",
-                        "type"=>"contact");
-        if (!$contact) {
-            throw $this->createNotFoundException('Unable to find Contacts entity.');
-        }
-        $sortie["resultat"] = array(
-                                'id'=>$contact->getId(),            
-                                'nom'=>$contact->__toString(),
-                                'mel' => $contact->getEmail(),
-                                'niveau' => $niveau
-                                );
-        $response = new JsonResponse();
-        $response->setData($sortie);
-        return $response;
-    }  
+    /**
+     * Liste des contacts par organisation en json.
+     *
+     * @Route("/listecontacts", name="pme_liste_contacts")
+     * @Method("GET")
+     * @Template()
+     */         
+  public function listecontactsAction()
+  {
+            $request = $this->getRequest();
+            $id = $request->get("id");            
+            $listecontacts = array();
+            $em = $this->getDoctrine()->getManager();
+            $sortie = array("erreur"=>true,
+                            "action" => "liste",
+                            "type"=>"contacts",              
+                            "message"=>"Liste des contacts");                 
+            $organisation = $em->getRepository('AcmePmeBundle:Organisations')->find($id);
+            foreach ($organisation->getContact() as $key => $contact) {
+                $listecontacts[] = array(
+                                        'id'=>$contact->getId(),   
+                                        'idorg'=>$id,                
+                                        'nom'=>$contact->__toString(),        
+                                        'name'=>$contact->__toString(),
+                                        'cat'=>'contact'
+                                );            
+            }   
+            $sortie["erreur"] = false;         
+            $sortie["resultat"] = $listecontacts;                      
+            $response = new JsonResponse();
+            $response->setData($sortie);
+            return $response;               
+  }    
     /**
      * Lists all Contacts entities.
      *
+     * @Route("/", name="contacts")
+     * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -46,19 +65,22 @@ class ContactsController extends Controller
 
         $entities = $em->getRepository('AcmePmeBundle:Contacts')->findAll();
 
-        return $this->render('AcmePmeBundle:Contacts:index.html.twig', array(
+        return array(
             'entities' => $entities,
-        ));
+        );
     }
     /**
      * Creates a new Contacts entity.
      *
+     * @Route("/", name="contacts_create")
+     * @Method("POST")
+     * @Template("AcmePmeBundle:Contacts:new.html.twig")
      */
     public function createAction(Request $request)
     {
         $entity = new Contacts();
         $niveau = $request->get("niveau");
-        $idorg = $request->get("idorg");        
+        $idorg = $request->get("idorg");          
         $sortie = array("erreur"=>true,
                         "action" => "new",
                         "type"=>"contact",
@@ -119,6 +141,9 @@ class ContactsController extends Controller
     /**
      * Displays a form to create a new Contacts entity.
      *
+     * @Route("/new", name="contacts_new")
+     * @Method("GET")
+     * @Template()
      */
     public function newAction()
     {
@@ -143,6 +168,9 @@ class ContactsController extends Controller
     /**
      * Finds and displays a Contacts entity.
      *
+     * @Route("/{id}", name="contacts_show")
+     * @Method("GET")
+     * @Template()
      */
     public function showAction($id)
     {
@@ -156,15 +184,18 @@ class ContactsController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('AcmePmeBundle:Contacts:show.html.twig', array(
+        return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
      * Displays a form to edit an existing Contacts entity.
      *
+     * @Route("/{id}/edit", name="contacts_edit")
+     * @Method("GET")
+     * @Template()
      */
     public function editAction($id)
     {
@@ -180,11 +211,11 @@ class ContactsController extends Controller
         $editForm = $this->createEditForm($entity,$niveau);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('AcmePmeBundle:Contacts:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -200,12 +231,17 @@ class ContactsController extends Controller
             'action' => $this->generateUrl('contacts_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
+
         $form->add('submit', 'submit', array('label' => 'Mettre à jour'));
+
         return $form;
     }
     /**
      * Edits an existing Contacts entity.
      *
+     * @Route("/{id}", name="contacts_update")
+     * @Method("PUT")
+     * @Template("AcmePmeBundle:Contacts:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -221,6 +257,7 @@ class ContactsController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contacts entity.');
         }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity,$niveau);
         $editForm->handleRequest($request);
@@ -240,7 +277,7 @@ class ContactsController extends Controller
                                     'email'=>$entity->getEmail(),
                                     'centresinteret'=> $entity->getListecentresinteret(),
                                     'cat'=>'contact'               
-                                    );    
+                                    );                     
         }
         $response = new JsonResponse();
         $response->setData($sortie);
@@ -249,6 +286,8 @@ class ContactsController extends Controller
     /**
      * Deletes a Contacts entity.
      *
+     * @Route("/{id}", name="contacts_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -256,26 +295,21 @@ class ContactsController extends Controller
                         "action" => "delete",
                         "type"=>"contact",
                         "message"=>"Le contact n'a pas été supprimé");        
-//        $form = $this->createDeleteForm($id);
-//        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AcmePmeBundle:Contacts')->find($id);
 
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AcmePmeBundle:Contacts')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Contacts entity.');
-            }
-            $sortie["idorg"] = $entity->getOrganisation()->getId();     
-            $em->remove($entity);
-            $em->flush();
-            $sortie["erreur"] = false;
-            $sortie["id"] = $id;              
-            $sortie["message"] = "Le contact a été supprimé";              
-//        }
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Contacts entity.');
+        }
+        $sortie["idorg"] = $entity->getOrganisation()->getId();     
+        $em->remove($entity);
+        $em->flush();
+        $sortie["erreur"] = false;
+        $sortie["id"] = $id;              
+        $sortie["message"] = "Le contact a été supprimé";              
         $response = new JsonResponse();
         $response->setData($sortie);
-        return $response;
+        return $response;            
     }
 
     /**

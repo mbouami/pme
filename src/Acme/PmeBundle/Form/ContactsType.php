@@ -17,7 +17,8 @@ class ContactsType extends AbstractType
     public function __construct($niv)
     {
         $this->niv = $niv;
-    }   
+    } 
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

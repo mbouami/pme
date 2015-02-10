@@ -21,7 +21,7 @@ class DevisType extends AbstractType
         $this->niv = $niv;
         $this->org = $idorg;      
         $this->store = $store;
-    }  
+    }    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -83,18 +83,14 @@ class DevisType extends AbstractType
                                                         'data-dojo-type' =>'GrilleLignesDevis',
                                                         'data-dojo-props'=> "id:'grillelignesdevis_$this->niv',niveau:'$this->niv',donnees:'$this->store'"
                                                     )) )                                                                                              
-//            ->add('reference')
             ->add('totalht',null,array('label'=>'Total HT : ',                
                                          'attr'=> array(
                                                         'data-dojo-id'=> 'tht',                                             
                                                         'data-dojo-type' =>'dijit.form.CurrencyTextBox',
                                                         'data-dojo-props' =>"id:'devis_totalht_$this->niv',constraints:{fractional:true},currency: 'EUR',lang: 'fr-fr',invalidMessage:'Vous devez saisir un format valide'",
-//                                                        'value'=>0,
                                                         'style' =>'width: 120px',                                          
                                                         'class' => 'alignement_a_droite',                                               
-//                                                        'onChange' =>"Calculer_Total_TTC();"                                              
                                                     )) )
-//              ->add('tauxtva')
             ->add('tauxtva', 'entity', array('label'=>'Taux TVA : ',
                                         'empty_value' => false,
                                         'class' => 'AcmePmeBundle:Tauxtva',

@@ -6,11 +6,10 @@ define([
     "dojo/store/Memory",
     "dojo/dom",
     "gridx/core/model/cache/Sync", 
-    "dojo/dom-construct",
-    "dijit/registry",    
+    "dojo/dom-construct",   
     'gridx/allModules',
     "MenuCommandes"
-], function(declare,registry,array,Grid,Memory,dom,Cache,domConstruct,registry,modules,MenuCommandes){    
+], function(declare,registry,array,Grid,Memory,dom,Cache,domConstruct,modules,MenuCommandes){    
 return declare("GrilleActions", Grid,{       
         loadingMessage: 'Chargement en cours ...', 
         noDataMessage: 'Aucun résultat trouvé.',
@@ -40,8 +39,7 @@ return declare("GrilleActions", Grid,{
                 {field: 'sujet',name: 'Sujet',datatype: "string",width:'150px'},            
                 {field: 'createdAt',name: 'Date',datatype: "string",width:'100px'}, 
                 {field: 'contact',name: 'Contact',datatype: "string",width:'100px'}       
-            ],                                                             
-        class: 'grillecommandes',         
+            ],                                                                      
         constructor: function(){
             _this = this;               
         },        

@@ -82,7 +82,7 @@ class Actions
     {
         $this->piecejointe = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();         
+        $this->updatedAt = new \DateTime();  
     }
 
     /**
@@ -394,5 +394,5 @@ class Actions
     public function __toString()
     {
         return sprintf('%s',$this->getSujet());
-    }     
+    }        
 }

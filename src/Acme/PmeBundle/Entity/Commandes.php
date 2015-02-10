@@ -122,8 +122,7 @@ class Commandes
     {
         $this->lignescommandes = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime(); 
-    }
+        $this->updatedAt = new \DateTime();     }
 
     /**
      * Get id
@@ -640,5 +639,10 @@ class Commandes
     				'cat'=>'commande'    				
 				);
     	return $sortie;
-    }     
+    }  
+    
+    public function __toString()
+    {
+        return sprintf('%s',$this->getNumcommande());
+    }    
 }

@@ -2,5 +2,3 @@ services:
 #    acme_pme.example:
 #        class: Acme\PmeBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
-    acme.default.controller:
-        class: Acme\PmeBundle\Controller\DefaultController

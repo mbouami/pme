@@ -103,8 +103,7 @@ define([
                                 onClick: function(){
                                                 var lesorganisations = grilleorganisations.select.row.getSelected();
                                                 array.map(lesorganisations, function(idorganisation){                                     
-//                                                    var href = "gestion/Organisations/delete/"+idorganisation;
-                                                    var href = "organisations/"+idorganisation+"/delete";
+                                                    var href = "organisations/"+idorganisation;
                                                     Executer_url(href,"DELETE")      
                                                 });                                                                                                 
                                          }

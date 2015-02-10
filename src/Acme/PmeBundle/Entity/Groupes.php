@@ -3,8 +3,8 @@
 namespace Acme\PmeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Role\RoleInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Groupes
@@ -26,6 +26,18 @@ class Groupes implements RoleInterface
      */
     private $role;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $referents;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->referents = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -82,23 +94,6 @@ class Groupes implements RoleInterface
     {
         return $this->role;
     }
-    
-    public function __toString()
-    {
-        return sprintf('%s (%s)',$this->getNom(),  $this->getRole());
-    }      
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $referents;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->referents = new ArrayCollection();
-    }
 
     /**
      * Add referents
@@ -132,4 +127,9 @@ class Groupes implements RoleInterface
     {
         return $this->referents;
     }
+    
+    public function __toString()
+    {
+        return sprintf('%s (%s)',$this->getNom(),  $this->getRole());
+    }     
 }

@@ -4,16 +4,19 @@ namespace Acme\PmeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\PmeBundle\Entity\Commandes;
 use Acme\PmeBundle\Form\CommandesType;
 use Acme\PmeBundle\Entity\Lignescommandes;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * Commandes controller.
  *
+ * @Route("/commandes")
  */
 class CommandesController extends Controller
 {
@@ -21,6 +24,9 @@ class CommandesController extends Controller
     /**
      * Lists all Commandes entities.
      *
+     * @Route("/", name="commandes")
+     * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -28,13 +34,16 @@ class CommandesController extends Controller
 
         $entities = $em->getRepository('AcmePmeBundle:Commandes')->findAll();
 
-        return $this->render('AcmePmeBundle:Commandes:index.html.twig', array(
+        return array(
             'entities' => $entities,
-        ));
+        );
     }
     /**
      * Creates a new Commandes entity.
      *
+     * @Route("/", name="commandes_create")
+     * @Method("POST")
+     * @Template("AcmePmeBundle:Commandes:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -49,6 +58,7 @@ class CommandesController extends Controller
                         "message"=>"La Commande n'a pas été enregistrée");           
         $form = $this->createCreateForm($entity,0,$niveau);
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $iddevis = $form->get('devis')->getData();
@@ -93,7 +103,7 @@ class CommandesController extends Controller
         }
         $response = new JsonResponse();
         $response->setData($sortie);
-        return $response;      
+        return $response;  
     }
 
     /**
@@ -108,7 +118,7 @@ class CommandesController extends Controller
         $form = $this->createForm(new CommandesType($niveau,$iddevis,json_encode($entity->getListeproduits())), $entity, array(
             'action' => $this->generateUrl('commandes_create'),
             'method' => 'POST',
-        ));
+        ));        
 
         $form->add('submit', 'submit', array('label' => 'Enregistrer'));
 
@@ -118,6 +128,9 @@ class CommandesController extends Controller
     /**
      * Displays a form to create a new Commandes entity.
      *
+     * @Route("/new", name="commandes_new")
+     * @Method("GET")
+     * @Template()
      */
     public function newAction()
     {
@@ -150,19 +163,22 @@ class CommandesController extends Controller
                 $lignecommande->setTotalht($lignedevis->getTotalht());     
                 $lignecommande->setDescription($lignedevis->getDescription());
                 $commande->addLignescommande($lignecommande);
-        }
+        }        
         $form   = $this->createCreateForm($commande,$iddevis,$niveau);
 
-        return $this->render('AcmePmeBundle:Commandes:new.html.twig', array(
+        return array(
             'entity' => $commande,
             'niveau' => $niveau,
             'form'   => $form->createView(),
-        ));
+        );
     }
 
     /**
      * Finds and displays a Commandes entity.
      *
+     * @Route("/{id}", name="commandes_show")
+     * @Method("GET")
+     * @Template()
      */
     public function showAction($id)
     {
@@ -176,15 +192,18 @@ class CommandesController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('AcmePmeBundle:Commandes:show.html.twig', array(
+        return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
      * Displays a form to edit an existing Commandes entity.
      *
+     * @Route("/{id}/edit", name="commandes_edit")
+     * @Method("GET")
+     * @Template()
      */
     public function editAction($id)
     {
@@ -199,11 +218,11 @@ class CommandesController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('AcmePmeBundle:Commandes:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -227,6 +246,9 @@ class CommandesController extends Controller
     /**
      * Edits an existing Commandes entity.
      *
+     * @Route("/{id}", name="commandes_update")
+     * @Method("PUT")
+     * @Template("AcmePmeBundle:Commandes:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -248,15 +270,17 @@ class CommandesController extends Controller
             return $this->redirect($this->generateUrl('commandes_edit', array('id' => $id)));
         }
 
-        return $this->render('AcmePmeBundle:Commandes:edit.html.twig', array(
+        return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
     /**
      * Deletes a Commandes entity.
      *
+     * @Route("/{id}", name="commandes_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -264,29 +288,22 @@ class CommandesController extends Controller
                         "action" => "delete",
                         "type"=>"commande",
                         "typezone" => "onglet",            
-                        "message"=>"La commande n'a pas été supprimée");         
-//        $form = $this->createDeleteForm($id);
-//        $form->handleRequest($request);
-//
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AcmePmeBundle:Commandes')->find($id);
+                        "message"=>"La commande n'a pas été supprimée");
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AcmePmeBundle:Commandes')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Commandes entity.');
-            }
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Commandes entity.');
+        }
 
-            $em->remove($entity);
-            $em->flush();
-//        }
-            $sortie["erreur"] = false;
-            $sortie["id"] = $id;                   
-            $sortie["message"] = "La commande a été supprimée";              
-//        }
+        $em->remove($entity);
+        $em->flush();
+        $sortie["erreur"] = false;
+        $sortie["id"] = $id;                   
+        $sortie["message"] = "La commande a été supprimée";                      
         $response = new JsonResponse();
         $response->setData($sortie);
-        return $response;
-    }
+        return $response;    }
 
     /**
      * Creates a form to delete a Commandes entity by id.

@@ -138,7 +138,7 @@ class Devis
         $this->priorite = false;
         $this->envoimail = false; 
         $this->raisonclassement = null;
-        $this->reference = ' ';  
+        $this->reference = ' ';          
     }
 
     /**
@@ -692,8 +692,7 @@ class Devis
                         'contact'=>$this->getContact()?$this->getContact()->__toString():null,
                         'referent'=>$this->getReferent()->__toString(),  
                         'totalht' => $this->getTotalht(), 
-                        'totaltva' => $this->getTotaltva(),   
-//                        'tauxtva' => $this->getTauxtva()->getTaux(), 
+                        'totaltva' => $this->getTotaltva(),
                         'tauxtva' => $this->getTauxtva(),             
                         'fraisport' => $this->getFraisport(),             
                         'totalttc' => $this->getTotalttc(), 
@@ -731,5 +730,5 @@ class Devis
             $devisparent = $devisparent->getParent();
         }
         return $devisparent;
-    }        
+    }     
 }

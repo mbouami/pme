@@ -1,7 +1,8 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}  
+{% block body -%}
     <h1>Referents</h1>
+
     <table class="record_properties">
         <tbody>
             <tr>
@@ -42,11 +43,11 @@
             </tr>
             <tr>
                 <th>Signature</th>
-                <td><canvas id="signature_canvas"></canvas>{#<img src="{{ signature }}" alt="signature du référent"/>#}</td>
+                <td>{{ entity.signature }}</td>
             </tr>
             <tr>
-                <th>Signature Web</th>
-                <td><canvas id="signatureweb_canvas"></canvas>{#<img src="{{ signatureweb }}" alt="signature Web du référent"/>#}</td>
+                <th>Signatureweb</th>
+                <td>{{ entity.signatureweb }}</td>
             </tr>
             <tr>
                 <th>Isactive</th>
@@ -80,8 +81,4 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
-    <script>
-        afficher_image('signature_canvas',"{{ signature }}");
-        afficher_image('signatureweb_canvas',"{{ signatureweb }}");        
-    </script>   
 {% endblock %}

@@ -34,7 +34,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ AcmePmeBundle ]
+    bundles:        [ ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -75,10 +75,9 @@ swiftmailer:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
-#        binary:     "C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
+        binary:     "%kernel.root_dir%/../vendor/h4cc/wkhtmltopdf/bin/wkhtmltopdf.exe"
         options:    []
     image:
         enabled:    true
-        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
-        options:    []    
+        binary:     "%kernel.root_dir%/../vendor/h4cc/wkhtmltopdf/bin/wkhtmltoimage.exe"
+        options:    []       

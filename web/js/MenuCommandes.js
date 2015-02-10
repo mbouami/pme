@@ -23,7 +23,7 @@ define([
                                                 var lescommandes = grillecommandes.select.row.getSelected();
                                                 array.map(lescommandes, function(idcommande){
                                                     if (idcommande>0) {
-                                                        var href = "commandes/"+idcommande+"/delete";
+                                                        var href = "commandes/"+idcommande;
                                                         Execute_href("DELETE",href,grillecommandes);                                                     
                                                     }   
                                                 });                                                                                                 

@@ -56,5 +56,5 @@ class Typesdevis
     public function __toString()
     {
         return sprintf('%s',$this->getNom());
-    }       
+    }     
 }

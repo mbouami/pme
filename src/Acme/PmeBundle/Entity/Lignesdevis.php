@@ -268,5 +268,5 @@ class Lignesdevis
     public function __toString()
     {
         return sprintf('%s',$this->getReference());
-    }    
+    }       
 }

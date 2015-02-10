@@ -39,7 +39,7 @@ define([
                                 onClick: function(){
                                                 var contacts = grillecontacts.select.row.getSelected();
                                                 array.map(contacts, function(idcontact){                                     
-                                                var href = "contacts/"+idcontact+"/delete";
+                                                var href = "contacts/"+idcontact;
                                                 Execute_href("DELETE",href,grillecontacts);
                                                 });                                                                                                
                                          }

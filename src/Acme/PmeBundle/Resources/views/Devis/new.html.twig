@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%} 
-    {{ form_start(form, {'attr': {'onsubmit':'return sendFormDevis("POST",this,niveau,"grillelignesdevis_"+niveau);','enctype':'multipart/form-data'}}) }}    
+{% block body -%}
+    {{ form_start(form, {'attr': {'onsubmit':'sendFormDevis("POST",this,niveau,"grillelignesdevis_"+niveau);return false;','enctype':'multipart/form-data'}}) }}    
         {{ form_errors(form) }}  
     <table border='0'>
         <tr>
@@ -45,4 +45,3 @@
         {{ form(form) }}
     {{ form_end(form) }}   
 {% endblock %}
-

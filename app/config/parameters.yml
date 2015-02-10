@@ -11,4 +11,4 @@ parameters:
     mailer_user: mbouami
     mailer_password: 7v23zoo2
     locale: fr
-    secret: 1fa09ea61a5eed2dfe59dc9f2a87d656
+    secret: ThisTokenIsNotSoSecretChangeIt

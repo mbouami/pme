@@ -1,46 +1,16 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}     
-    {{ form_start(edit_form, {'attr': {'onsubmit':'return sendForm("POST",this);','enctype':'multipart/form-data'}}) }}
-        {{ form_errors(edit_form) }}  
-        <table booder='0'>
-        <tr>
-            <td>{{ form_widget(edit_form.civilite) }}</td>
-            <td>{{ form_widget(edit_form.nom) }}</td>               
-            <td>{{ form_widget(edit_form.prenom) }}</td>            
-        </tr>           
-        <tr>
-            <td>{{ form_widget(edit_form.username) }}</td>
-            <td>{{ form_widget(edit_form.password.first) }}</td>       
-            <td>{{ form_widget(edit_form.password.second) }}</td>               
-        </tr>     
-        <tr>
-            <td>{{ form_widget(edit_form.email) }}</td>
-            <td>{{ form_widget(edit_form.fixe) }}</td>       
-            <td>{{ form_widget(edit_form.mobile) }}</td>               
-        </tr>      
-        <tr>
-            <td>Activé le compte : {{ form_widget(edit_form.isActive) }}</td>
-            <td style="text-align: right">les groupes :</td>            
-            <td style="vertical-align: middle; text-align: left">{{ form_widget(edit_form.groupes) }}</td>                     
-        </tr>     
-        <tr>
-            <td>Signanture  :</td>
-            <td>{{ form_widget(edit_form.file) }}</td>            
-            <td style="vertical-align: middle; text-align: left"><canvas id="signature_canvas_{{ niveau }}"></canvas></td>                     
-        </tr>      
-        <tr>
-            <td>Signanture Web  :</td>
-            <td>{{ form_widget(edit_form.file1) }}</td>            
-            <td style="vertical-align: middle; text-align: left"><canvas id="signatureweb_canvas_{{ niveau }}"></canvas></td>                     
-        </tr>          
-        </table>        
-        {{ form(edit_form) }}
-    {{ form_end(edit_form) }}       
-{% endblock %}
-{% block javascripts %}
-<script type="text/javascript">
-    afficher_image("signature_canvas_{{ niveau }}","{{ signature }}");
-    afficher_image("signatureweb_canvas_{{ niveau }}","{{ signatureweb }}");
-</script> 
+{% block body -%}
+    <h1>Referents edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('referents') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
 {% endblock %}

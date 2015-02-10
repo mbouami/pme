@@ -108,7 +108,7 @@ class Contacts
         $this->centresinteret = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();       
-        $this->connectedAt = new \DateTime();  
+        $this->connectedAt = new \DateTime();         
     }
 
     /**
@@ -545,8 +545,12 @@ class Contacts
     	return $listecentresinteret;
     } 
     
+    public function getEmailDestinataire(){
+        return sprintf('%s %s %s<%s>',$this->getCivilite(), $this->getNom(),$this->getPrenom(),  $this->getEmail());
+        
+    }
     public function __toString()
     {
         return sprintf('%s %s %s',$this->getCivilite(), $this->getNom(),$this->getPrenom());
-    }       
+    }      
 }

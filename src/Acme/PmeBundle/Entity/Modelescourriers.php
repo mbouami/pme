@@ -112,5 +112,5 @@ class Modelescourriers
     public function __toString()
     {
         return sprintf('%s',$this->getLibelle());
-    }      
+    }       
 }

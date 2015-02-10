@@ -56,5 +56,5 @@ class Modesreglement
     public function __toString()
     {
         return sprintf('%s',$this->getType());
-    }         
+    }       
 }

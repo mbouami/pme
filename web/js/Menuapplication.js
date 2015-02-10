@@ -89,7 +89,7 @@ define([
                                                     id : "liste_tauxtva",
                                                     title : "Liste des Taux de TVA",
 //                                                    href: "referents/new?niveau="+niveau,
-                                                    href: "affichertauxtva",
+                                                    href: "tauxtva/affichertauxtva",
                                                     closable: true,
                                                     selected: true 
                                                 };
@@ -105,7 +105,8 @@ define([
                                                     id : "liste_modeles",
                                                     title : "Liste des modèles",
 //                                                    href: "referents/new?niveau="+niveau,
-                                                    href : "affichermodeles",
+//                                                    href : "affichermodeles",
+                                                    href:"modelescourriers/affichermodeles",
 //                                                    href : "modelescourriers/new",
                                                     closable: true,
                                                     selected: true 
@@ -122,7 +123,7 @@ define([
                                                     id : "liste_statuts",
                                                     title : "Liste des statuts",
 //                                                    href: "referents/new?niveau="+niveau,
-                                                    href: "afficherstatuts",
+                                                    href: "statuts/afficherstatuts",
                                                     closable: true,
                                                     selected: true 
                                                 };
@@ -137,7 +138,7 @@ define([
                                                     id : "liste_services",
                                                     title : "Liste des services",
 //                                                    href: "referents/new?niveau="+niveau,
-                                                    href: "afficherservices",
+                                                    href: "services/afficherservices",
                                                     closable: true,
                                                     selected: true 
                                                 };
@@ -152,7 +153,7 @@ define([
                                                     id : "liste_centres_interets",
                                                     title : "Liste des centres d'intérêts",
 //                                                    href: "referents/new?niveau="+niveau,
-                                                    href: "affichercentresinterets",
+                                                    href: "centresinteret/affichercentreinterets",
                                                     closable: true,
                                                     selected: true 
                                                 };

@@ -21,7 +21,7 @@ class CommandesType extends AbstractType
         $this->niv = $niv;
         $this->iddevis = $iddevis; 
         $this->store = $store;        
-    }      
+    }    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

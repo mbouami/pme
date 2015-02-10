@@ -92,12 +92,12 @@ return declare("GrilleDevis", Grid,{
                         }
         },
 	RemoveElement : function(iddevis,dossier){
-                this.store.remove(iddevis);
-console.log(this.store.query({id:dossier}));                
-                if(this.store.query({id:dossier})[0].children.length==1){
-//                if (this.store.query({id:dossier}).length==1) {                    
-                    this.store.remove(dossier);
-                }
+                if (this.store.query({id:dossier}).length>0) {
+                    this.store.remove(iddevis); 
+                    if(this.store.query({id:dossier})[0].children.length==1){                  
+                        this.store.remove(dossier);
+                    }                    
+                }           
 	},      
 	AddProduit : function(dossier,produit){
                 this.store.query({id:dossier}).forEach(function(object){

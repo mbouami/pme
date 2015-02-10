@@ -33,7 +33,7 @@ define([
                                                 array.map(lesdevis, function(iddevis){  
                                                     
                                                     if (iddevis>0) {
-                                                        var href = "devis/"+iddevis+"/delete";
+                                                        var href = "devis/"+iddevis;
                                                         Execute_href("DELETE",href,grilledevisencours);                                                     
                                                     } else {
                                                         iddossier = iddevis;
@@ -112,24 +112,12 @@ define([
                                 onClick: function(){
                                                 var lesdevis = grilledevisencours.select.row.getSelected();
                                                 array.map(lesdevis, function(iddevis){
-                                                    var href = iddevis+"/imprimerdevis";
+                                                    var href = "devis/"+iddevis+"/imprimerdevis";
                                                     openpdf("POST",href)                                                    
 //                                                    Executer_url(href,"POST")     
                                                 });                                                                                                 
                                          }
                             })); 
-            this.addChild(new MenuItem({
-                                label: "Afficher le devis sélectionné",
-                                onClick: function(){
-                                                var lesdevis = grilledevisencours.select.row.getSelected();
-                                                array.map(lesdevis, function(iddevis){
-                                                    if (iddevis>0) {
-                                                        var href = iddevis+"/afficherdevis";
-                                                        window.open(href,'Devis en cours','_blank');                                                        
-                                                    }    
-                                                });                                                                                                 
-                                         }
-                            }));                                 
             this.addChild(new MenuItem({
                                 label: "envoyer le devis sélectionné",
                                 onClick: function(){
@@ -143,7 +131,9 @@ define([
                                                                                 id : "new_message_"+iddevis,                                                    
 //                                                                              id : "reception_commande_"+iddevis,
                                                                                 title : "Envoi du Devis : "+reference,
-                                                                                href: iddevis+"/newMessage?niveau="+niveau,                                                                           closable: true,
+//                                                                                href: iddevis+"/newMessage?niveau="+niveau,
+                                                                                href: "affichermessage?niveau="+niveau+"&iddevis="+iddevis,
+                                                                                closable: true,
                                                                                 selected: true 
                                                                             };  
                                                     AjouterOnglet("zoneonglets",parametres_onglet);                                                      

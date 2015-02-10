@@ -80,5 +80,5 @@ class DevisRepository extends EntityRepository
         } catch (\Doctrine\ORM\NoResultException $e) {
             return null;
         }        
-    }   
+    }       
 }

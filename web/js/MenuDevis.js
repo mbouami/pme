@@ -52,7 +52,7 @@ define([
                                                 var iddossier = null;
                                                 array.map(lesdevis, function(iddevis){  
                                                     if (iddevis>0) {
-                                                        var href = "devis/"+iddevis+"/delete";
+                                                        var href = "devis/"+iddevis;
                                                         Execute_href("DELETE",href,grilledevisencours);
                                                     } else {
                                                         iddossier = iddevis;
@@ -184,24 +184,12 @@ define([
                                                 var lesdevis = grilledevis.select.row.getSelected();
                                                 array.map(lesdevis, function(iddevis){
                                                     if (iddevis>0) {
-                                                        var href = iddevis+"/imprimerdevis";
+                                                        var href = "devis/"+iddevis+"/imprimerdevis";
                                                         openpdf("POST",href)                                                         
                                                     }    
                                                 });                                                                                                 
                                          }
-                            }));  
-            this.addChild(new MenuItem({
-                                label: "Afficher le devis sélectionné",
-                                onClick: function(){
-                                                var lesdevis = grilledevis.select.row.getSelected();
-                                                array.map(lesdevis, function(iddevis){
-                                                    if (iddevis>0) {
-                                                        var href = iddevis+"/afficherdevis";
-                                                        window.open(href,'_blank');                                                        
-                                                    }    
-                                                });                                                                                                 
-                                         }
-                            }));                             
+                            }));                           
             this.addChild(new MenuItem({
                                 label: "envoyer le devis sélectionné",
                                 onClick: function(){

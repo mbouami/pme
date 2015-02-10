@@ -4,9 +4,7 @@ security:
     # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
         Acme\PmeBundle\Entity\Referents:
-            algorithm:        sha512
-            encode_as_base64: true
-            iterations:       5000
+            algorithm: bcrypt      
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
@@ -15,14 +13,8 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-#        in_memory:
-#            memory:
-#                users:
-#                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-#                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         administrators:
             entity: { class: AcmePmeBundle:Referents, property: username }
-
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
@@ -30,26 +22,23 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # the login page has to be accessible for everybody
-        login:
-            pattern:  ^/login$
-            security: false
-
+            
+        login_firewall:
+            pattern:   ^/login$
+            anonymous: ~
+            
         secured_area:
             pattern:    ^/
             form_login:
-                check_path: _security_check
-                login_path: _pme_login
+                check_path: login_check
+                login_path: login_route
                 csrf_provider: form.csrf_provider
             logout:
-                path:   _pme_logout
-                target: acme_pme_homepage
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
-
+                path:   logout
+                target: homepage
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
-    # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
+    # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

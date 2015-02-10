@@ -3,17 +3,13 @@
 namespace Acme\PmeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Referents
- */
-/**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
  */
 class Referents implements AdvancedUserInterface, \Serializable
 {
@@ -28,7 +24,7 @@ class Referents implements AdvancedUserInterface, \Serializable
      * @Assert\File(maxSize="6000000")
      */
     private $file1; 
-    
+        
     /**
      * @var integer
      */
@@ -48,11 +44,6 @@ class Referents implements AdvancedUserInterface, \Serializable
      * @var string
      */
     private $username;
-
-    /**
-     * @var string
-     */
-    private $salt;
 
     /**
      * @var string
@@ -121,10 +112,9 @@ class Referents implements AdvancedUserInterface, \Serializable
     {
         $this->groupes = new ArrayCollection();
         $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();       
-        $this->connectedAt = new \DateTime();        
+        $this->connectedAt = new \DateTime();         
     }
 
     /**
@@ -204,29 +194,6 @@ class Referents implements AdvancedUserInterface, \Serializable
     public function getUsername()
     {
         return $this->username;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return Referents
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string 
-     */
-    public function getSalt()
-    {
-        return $this->salt;
     }
 
     /**
@@ -519,7 +486,30 @@ class Referents implements AdvancedUserInterface, \Serializable
      */
     public function doStuffOnPostUpdate()
     {
-        $this->updatedAt = new \DateTime(); 
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function doStuffOnPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+        if (null === $this->getFile() && null === $this->getFile1() ) {
+            return;
+        }
+        $filename = sha1(uniqid(mt_rand(), true));
+        $this->path = $filename.'.'.$this->getFile()->guessExtension();
+        $filename1 = sha1(uniqid(mt_rand(), true));
+        $this->getFile()->move($this->getUploadRootDir(),$this->path);        
+        $this->path1 = $filename1.'.'.$this->getFile1()->guessExtension();
+        $this->getFile1()->move($this->getUploadRootDir(),$this->path1);          
+        $this->setSignature($this->image_to_base64($this->getUploadRootDir()."/".$this->path));
+        $this->setSignatureweb($this->image_to_base64($this->getUploadRootDir()."/".$this->path1));
+        unlink($this->getUploadRootDir()."/".$this->path);
+        unlink($this->getUploadRootDir()."/".$this->path1);      
+        $this->file = null;
+        $this->file1 = null;  
     }
 
     /**
@@ -529,10 +519,29 @@ class Referents implements AdvancedUserInterface, \Serializable
     {
         $this->connectedAt = new \DateTime(); 
     }
-    
-    public function __toString()
-    {
-        return sprintf('%s %s %s',$this->getCivilite(), $this->getNom(),$this->getPrenom());
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getRoles() {
+        return $this->groupes->toArray();          
+    }
+
+    public function isAccountNonExpired() {
+        return true;            
+    }
+
+    public function isAccountNonLocked() {
+        return true;            
+    }
+
+    public function isCredentialsNonExpired() {
+        return true;         
+    }
+
+    public function isEnabled() {
+        return $this->isActive;         
     }
 
     public function serialize() {
@@ -540,7 +549,7 @@ class Referents implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,            
-        ));           
+        ));          
     }
 
     public function unserialize($serialized) {
@@ -550,31 +559,12 @@ class Referents implements AdvancedUserInterface, \Serializable
             $this->password,                
         ) = unserialize($serialized);         
     }
-
-    public function eraseCredentials() {
-        
+    
+    public function __toString()
+    {
+        return sprintf('%s %s %s',$this->getCivilite(), $this->getNom(),$this->getPrenom());
     }
-
-    public function getRoles() {
-        return $this->groupes->toArray();        
-    }
-
-    public function isAccountNonExpired() {
-        return true;        
-    }
-
-    public function isAccountNonLocked() {
-        return true;        
-    }
-
-    public function isCredentialsNonExpired() {
-        return true;        
-    }
-
-    public function isEnabled() {
-        return $this->isActive;        
-    }
-
+    
     public function getRefDevis() {
         $date = new \DateTime();
         $refdate = date_format($date, 'dm');
@@ -650,43 +640,10 @@ class Referents implements AdvancedUserInterface, \Serializable
         $image = file_get_contents($path_to_image);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($image); 
         return $base64;
-    }    
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function doStuffOnPreUpdate()
-    {
-        $this->updatedAt = new \DateTime();
-        if (null === $this->getFile() && null === $this->getFile1() ) {
-            return;
-        }
-
-        // use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-
-        // move takes the target directory and then the
-        // target filename to move to
-        $filename = sha1(uniqid(mt_rand(), true));
-        $this->path = $filename.'.'.$this->getFile()->guessExtension();
-//        $this->getFile()->move(
-//            $this->getUploadRootDir(),
-//            $this->getFile()->getClientOriginalName()
-//        );
-        $filename1 = sha1(uniqid(mt_rand(), true));
-        $this->getFile()->move($this->getUploadRootDir(),$this->path);        
-        $this->path1 = $filename1.'.'.$this->getFile1()->guessExtension();
-        $this->getFile1()->move($this->getUploadRootDir(),$this->path1);          
-        $this->setSignature($this->image_to_base64($this->getUploadRootDir()."/".$this->path));
-        $this->setSignatureweb($this->image_to_base64($this->getUploadRootDir()."/".$this->path1));
-//        if ($file = $this->getAbsolutePath()) {
-            unlink($this->getUploadRootDir()."/".$this->path);
-//        }
-//        if ($file = $this->getAbsolutePath()) {
-            unlink($this->getUploadRootDir()."/".$this->path1);
-//        }        
-        $this->file = null;
-        $this->file1 = null;  
     }
-}
 
+    public function getSalt() {
+        
+    }
+
+}

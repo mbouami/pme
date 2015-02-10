@@ -1,46 +1,15 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%} 
-    {{ form_start(form, {'attr': {'onsubmit':'return sendForm("POST",this);','enctype':'multipart/form-data'}}) }}
-        {{ form_errors(form) }}  
-        <table booder='0'>
-        <tr>
-            <td>{{ form_widget(form.civilite) }}</td>
-            <td>{{ form_widget(form.nom) }}</td>               
-            <td>{{ form_widget(form.prenom) }}</td>            
-        </tr>           
-        <tr>
-            <td>{{ form_widget(form.username) }}</td>
-            <td>{{ form_widget(form.password.first) }}</td>       
-            <td>{{ form_widget(form.password.second) }}</td>               
-        </tr>     
-        <tr>
-            <td>{{ form_widget(form.email) }}</td>
-            <td>{{ form_widget(form.fixe) }}</td>       
-            <td>{{ form_widget(form.mobile) }}</td>               
-        </tr>      
-        <tr>
-            <td>Compte actif : {{ form_widget(form.isActive) }}</td>
-            <td style="text-align: right">Membre de :</td>            
-            <td style="vertical-align: middle; text-align: left">{{ form_widget(form.groupes) }}</td>                     
-        </tr>     
-        <tr>
-            <td>Signanture  :</td>
-            <td>{{ form_widget(form.file) }}</td>            
-            <td style="vertical-align: middle; text-align: left"><canvas id="signature_canvas_{{ niveau }}"></canvas></td>                     
-        </tr>      
-        <tr>
-            <td>Signanture Web  :</td>
-            <td>{{ form_widget(form.file1) }}</td>            
-            <td style="vertical-align: middle; text-align: left"><canvas id="signatureweb_canvas_{{ niveau }}"></canvas></td>                     
-        </tr>          
-        </table>        
-        {{ form(form) }}
-    {{ form_end(form) }}    
-{% endblock %}
-{% block javascripts %}
-<script type="text/javascript"> 
-    afficher_text_canevas("signature_canvas_{{ niveau }}","Choisir votre signature","black"); 
-    afficher_text_canevas("signatureweb_canvas_{{ niveau }}","Choisir votre signature web","black");
-</script> 
+{% block body -%}
+    <h1>Referents creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('referents') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
 {% endblock %}

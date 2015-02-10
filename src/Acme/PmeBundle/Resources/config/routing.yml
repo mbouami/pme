@@ -1,220 +1,63 @@
-acme_pme_modelescourriers:
-    resource: "@AcmePmeBundle/Resources/config/routing/modelescourriers.yml"
-    prefix:   /modelescourriers
-
-acme_pme_adresseslivraisonsfacturations:
-    resource: "@AcmePmeBundle/Resources/config/routing/adresseslivraisonsfacturations.yml"
-    prefix:   /adresseslivraisonsfacturations
-
-acme_pme_contacts:
-    resource: "@AcmePmeBundle/Resources/config/routing/contacts.yml"
-    prefix:   /contacts
-
-acme_pme_commandes:
-    resource: "@AcmePmeBundle/Resources/config/routing/commandes.yml"
-    prefix:   /commandes
-
-acme_pme_organisations:
-    resource: "@AcmePmeBundle/Resources/config/routing/organisations.yml"
-    prefix:   /organisations
-
-acme_pme_devis:
-    resource: "@AcmePmeBundle/Resources/config/routing/devis.yml"
-    prefix:   /devis
-
-acme_pme_referents:
-    resource: "@AcmePmeBundle/Resources/config/routing/referents.yml"
-    prefix:   /referents
-
-AcmePmeBundle_liste_produits:
-    pattern:  /listeproduits
-    defaults: { _controller: AcmePmeBundle:Default:listeproduits } 
-#    path:     /listeproduits
-#    defaults: { _controller: "acme.default.controller:listeproduitsAction" } 
-    
-AcmePmeBundle_liste_tauxtva:
-    pattern:  /listetauxtva
-    defaults: { _controller: AcmePmeBundle:Default:listetauxtva }     
-    
-    
-AcmePmeBundle_liste_adresses:
-    pattern:  /listeadresses
-    defaults: { _controller: AcmePmeBundle:Adresseslivraisonsfacturations:listeadresses }     
-       
-AcmePmeBundle_liste_services:
-    pattern:  /listeservices
-    defaults: { _controller: AcmePmeBundle:Default:listeservices }    
-    
-AcmePmeBundle_liste_statuts:
-    pattern:  /listestatuts 
-    defaults: { _controller: AcmePmeBundle:Default:listestatuts }    
-    
-AcmePmeBundle_liste_centres_interets:
-    pattern:  /listecentresinterets 
-    defaults: { _controller: AcmePmeBundle:Default:listecentresinterets }      
-        
-AcmePmeBundle_liste_modelescourriers:
-    pattern:  /listemodeles
-    defaults: { _controller: AcmePmeBundle:Default:listemodeles } 
-    
-AcmePmeBundle_liste_organisations:
-    pattern:  /listeorganisations
-    defaults: { _controller: AcmePmeBundle:Organisations:listeorganisations }
-    
-AcmePmeBundle_liste_contacts:
-    pattern:  /listecontacts
-    defaults: { _controller: AcmePmeBundle:Organisations:listecontacts }      
-   
-AcmePmeBundle_liste_villes_par_pays:
-    pattern:  /listevilles
-    defaults: { _controller: AcmePmeBundle:Default:listevilles } 
-    
-AcmePmeBundle_detail_organisations:
-    pattern:  /detailorganisation
-    defaults: { _controller: AcmePmeBundle:Organisations:detailorganisation }    
-   
-AcmePmeBundle_devis_en_cours:
-    pattern:  /devisencours
-    defaults: { _controller: "AcmePmeBundle:Devis:listedevisencours" }
-    requirements: { _method: post|get|put}  
-    
-AcmePmeBundle_enregistrer_lignes_devis:
-    pattern:  /enregistrerlignesdevis
-    defaults: { _controller: "AcmePmeBundle:Devis:enregistrerlignesdevis" }
-    requirements: { _method: post|get}  
-    
-AcmePmeBundle_devis_en_cours:
-    pattern:  /devisencours
-    defaults: { _controller: "AcmePmeBundle:Devis:listedevisencours" }
-    requirements: { _method: post|get|put}     
-
-AcmePmeBundle_signatures:
-    pattern:  /{id}/signatures
-    defaults: { _controller: "AcmePmeBundle:Referents:getSignatures" }
-    requirements: { _method: post|get|put}    
-    
-imprimer_devis:
-    pattern:  /{id}/imprimerdevis
-    defaults: { _controller: "AcmePmeBundle:Devis:imprimerdevis" }
-    requirements: { _method: post|get|put}  
-
-afficher_devis:
-    pattern:  /{id}/afficherdevis
-    defaults: { _controller: "AcmePmeBundle:Devis:afficherdevis" }
-    requirements: { _method: post|get|put}  
-    
-new_message:
-    pattern:  /{id}/newMessage
-    defaults: { _controller: "AcmePmeBundle:Devis:newMessage" }
-    requirements: { _method: post|get|put}   
-    
-envoyer_devis:
-    pattern:  /{id}/envoyerdevis
-    defaults: { _controller: "AcmePmeBundle:Devis:envoyerdevis" }
-    requirements: { _method: post|get|put} 
-    
-AcmePmeBundle_detail_modelecourrier:
-    pattern:  /detailmodele
-    defaults: { _controller: AcmePmeBundle:Modelescourriers:detailmodele }  
-    
-AcmePmeBundle_detail_devis:
-    pattern:  /detaildevis
-    defaults: { _controller: AcmePmeBundle:Devis:detaildevis }    
-    
-AcmePmeBundle_upload:
-    pattern:  /upload
-    defaults: { _controller: AcmePmeBundle:Devis:upload }   
-    
-AcmePmeBundle_effacer_fichier:
-    pattern:  /effacerfichier/{nomfichier}
-    defaults: { _controller: AcmePmeBundle:Devis:effacerfichier }  
-
-AcmePmeBundle_afficher_tauxtva:
-    pattern:  /affichertauxtva
-    defaults: { _controller: "AcmePmeBundle:Default:AfficherTaux" }  
-    
-AcmePmeBundle_tauxtva_delete:
-    pattern:  /{id}/deletetaux
-    defaults: { _controller: "AcmePmeBundle:Default:deletetaux" }
-    requirements: { _method: post|delete } 
-
-AcmePmeBundle_tauxtva_new:
-    pattern:  /{tauxtva}/savetaux
-    defaults: { _controller: "AcmePmeBundle:Default:savetaux" }
-    requirements: { _method: post }  
-    
-AcmePmeBundle_afficher_services:
-    pattern:  /afficherservices
-    defaults: { _controller: "AcmePmeBundle:Default:AfficherServices" }  
-    
-AcmePmeBundle_service_delete:
-    pattern:  /{id}/deleteservice
-    defaults: { _controller: "AcmePmeBundle:Default:deleteservice" }
-    requirements: { _method: post|delete } 
-
-AcmePmeBundle_service_new:
-    pattern:  /{nomservice}/saveservice
-    defaults: { _controller: "AcmePmeBundle:Default:saveservice" }
-    requirements: { _method: post }   
-    
-AcmePmeBundle_afficher_statuts:
-    pattern:  /afficherstatuts
-    defaults: { _controller: "AcmePmeBundle:Default:AfficherStatuts" }  
-    
-AcmePmeBundle_statut_delete:
-    pattern:  /{id}/deletestatut
-    defaults: { _controller: "AcmePmeBundle:Default:deletestatut" }
-    requirements: { _method: post|delete } 
-
-AcmePmeBundle_statut_new:
-    pattern:  /{nomstatut}/savestatut
-    defaults: { _controller: "AcmePmeBundle:Default:savestatut" }
-    requirements: { _method: post }   
-    
-AcmePmeBundle_afficher_centres_interets:
-    pattern:  /affichercentresinterets
-    defaults: { _controller: "AcmePmeBundle:Default:AfficherCentresInterets" }  
-    
-AcmePmeBundle_centre_interet_delete:
-    pattern:  /{id}/deletecentreinteret
-    defaults: { _controller: "AcmePmeBundle:Default:deletecentreinteret" }
-    requirements: { _method: post|delete } 
-
-AcmePmeBundle_centre_interet_new:
-    pattern:  /{nomcentreinteret}/savecentreinteret
-    defaults: { _controller: "AcmePmeBundle:Default:savecentreinteret" }
-    requirements: { _method: post }   
-    
-AcmePmeBundle_afficher_modeles:
-    pattern:  /affichermodeles
-    defaults: { _controller: "AcmePmeBundle:Modelescourriers:AfficherModeles" }  
-    
-#AcmePmeBundle_modele_new:
-#    pattern:  /{nommodele}/{sujetmodele}/{descriptionmodele}/savemodele
-#    defaults: { _controller: "AcmePmeBundle:Modelescourriers:savemodele" }
-#    requirements: { _method: post|get }       
-AcmePmeBundle_modele_new:
-    pattern:  /savemodele
-    defaults: { _controller: "AcmePmeBundle:Modelescourriers:savemodele" }
-    requirements: { _method: post|get }  
-    
-#AcmePmeBundle_modele_update:
-#    pattern:  /{id}/{sujet}/{description}/updatemodele
-#    defaults: { _controller: "AcmePmeBundle:Modelescourriers:updatemodele" }
-#    requirements: { _method: post|delete }   
-AcmePmeBundle_modele_update:
-    pattern:  /{id}/updatemodele
-    defaults: { _controller: "AcmePmeBundle:Modelescourriers:updatemodele" }
-    requirements: { _method: post|delete }   
-    
-AcmePmeBundle_modele_delete:
-    pattern:  /{id}/deletemodele
-    defaults: { _controller: "AcmePmeBundle:Modelescourriers:deletemodele" }
-    requirements: { _method: post|delete }         
-_pme_secured:
-    resource: "@AcmePmeBundle/Controller/SecuredController.php"
-    type:     annotation
+#acme_pme_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: AcmePmeBundle:Default:index }
     
 acme_pme_homepage:
-    path:     /
-    defaults: { _controller: AcmePmeBundle:Default:index }
+    resource: "@AcmePmeBundle/Controller/DefaultController.php"
+    type:   annotation
+    
+acme_pme_referents:
+    resource: "@AcmePmeBundle/Controller/ReferentsController.php"
+    type:   annotation
+    
+acme_pme_organisations:
+    resource: "@AcmePmeBundle/Controller/OrganisationsController.php"
+    type:   annotation    
+    
+acme_pme_devis:
+    resource: "@AcmePmeBundle/Controller/DevisController.php"
+    type:   annotation     
+    
+acme_pme_contacts:
+    resource: "@AcmePmeBundle/Controller/ContactsController.php"
+    type:   annotation 
+    
+acme_pme_taux_tva:
+    resource: "@AcmePmeBundle/Controller/TauxtvaController.php"
+    type:   annotation 
+    
+acme_pme_services:
+    resource: "@AcmePmeBundle/Controller/ServicesController.php"
+    type:   annotation     
+    
+acme_pme_statuts:
+    resource: "@AcmePmeBundle/Controller/StatutsController.php"
+    type:   annotation    
+    
+acme_pme_centres_interet:
+    resource: "@AcmePmeBundle/Controller/CentresinteretController.php"
+    type:   annotation   
+    
+acme_pme_villes:
+    resource: "@AcmePmeBundle/Controller/VillesController.php"
+    type:   annotation     
+    
+acme_pme_commandes:
+    resource: "@AcmePmeBundle/Controller/CommandesController.php"
+    type:   annotation     
+    
+acme_pme_produits:
+    resource: "@AcmePmeBundle/Controller/ProduitsController.php"
+    type:   annotation     
+    
+acme_pme_modeles_courriers:
+    resource: "@AcmePmeBundle/Controller/ModelescourriersController.php"
+    type:   annotation 
+    
+acme_pme_adresses_livraisons_facturations:
+    resource: "@AcmePmeBundle/Controller/AdresseslivraisonsfacturationsController.php"
+    type:   annotation  
+    
+acme_pme_messages:
+    resource: "@AcmePmeBundle/Controller/MessagesController.php"
+    type:   annotation      
