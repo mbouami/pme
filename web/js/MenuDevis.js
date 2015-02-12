@@ -184,7 +184,7 @@ define([
                                                 var lesdevis = grilledevis.select.row.getSelected();
                                                 array.map(lesdevis, function(iddevis){
                                                     if (iddevis>0) {
-                                                        var href = "devis/"+iddevis+"/imprimerdevis";
+                                                        var href = "devis/imprimerdevis?iddevis="+iddevis;
                                                         openpdf("POST",href)                                                         
                                                     }    
                                                 });                                                                                                 

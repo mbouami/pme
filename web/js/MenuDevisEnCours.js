@@ -112,7 +112,8 @@ define([
                                 onClick: function(){
                                                 var lesdevis = grilledevisencours.select.row.getSelected();
                                                 array.map(lesdevis, function(iddevis){
-                                                    var href = "devis/"+iddevis+"/imprimerdevis";
+//                                                    var href = "devis/"+iddevis+"/imprimerdevis";
+                                                    var href = "devis/imprimerdevis?iddevis="+iddevis;
                                                     openpdf("POST",href)                                                    
 //                                                    Executer_url(href,"POST")     
                                                 });                                                                                                 

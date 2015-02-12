@@ -94,13 +94,15 @@ class DevisController extends Controller
     /**
      * Liste des Devis en cours en json
      *
-     * @Route("/{id}/imprimerdevis", name="pme_imprimer_devis_en_cours")
+     * @Route("/imprimerdevis", name="pme_imprimer_devis_en_cours")
      * @Method("POST")
      * @Template()
      */    
-    public function imprimerdevisAction($id)
+    public function imprimerdevisAction()
     {    
         $document = new Document();
+        $request = $this->getRequest();
+        $id = $request->get("iddevis");         
         $em = $this->getDoctrine()->getManager();
         $devis = $em->getRepository('AcmePmeBundle:Devis')->find($id);   
         if (!$devis) {
